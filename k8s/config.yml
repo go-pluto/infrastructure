@@ -35,19 +35,19 @@ data:
         SyncPort = "30001"
         UserStart = 1
         UserEnd = 10
-        MaildirRoot = "/data/Maildirs/worker-1"
-        CRDTLayerRoot = "/data/crdt-layers/worker-1"
+        MaildirRoot = "/data/maildirs"
+        CRDTLayerRoot = "/data/crdt-layers"
             [Workers.worker-1.TLS]
-            CertLoc = "/config/internal-worker-1-cert.pem"
-            KeyLoc = "/config/internal-worker-1-key.pem"
+            CertLoc = "/certs/internal/cert/internal-worker-1-cert.pem"
+            KeyLoc = "/certs/internal/key/internal-worker-1-key.pem"
 
     [Storage]
     PublicIP = "0.0.0.0"
     ListenIP = "0.0.0.0"
     MailPort = "21000"
     SyncPort = "31000"
-    MaildirRoot = "/data/Maildirs/storage"
-    CRDTLayerRoot = "/data/crdt-layers/storage"
+    MaildirRoot = "/data/maildirs"
+    CRDTLayerRoot = "/data/crdt-layers"
         [Storage.TLS]
-        CertLoc = "/config/internal-storage-cert.pem"
-        KeyLoc = "/config/internal-storage-key.pem"
+        CertLoc = "/certs/internal/cert/internal-storage-cert.pem"
+        KeyLoc = "/certs/internal/key/internal-storage-key.pem"
