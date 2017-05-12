@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pluto.toml
+data:
+  pluto.toml: |-
+    RootCertLoc = "/certs/root/root-cert.pem"
+    IntlConnTimeout = 100
+    IntlConnRetry = 400
+
+    [IMAP]
+    Greeting = "Pluto ready."
+    HierarchySeparator = "."
+
+    [Distributor]
+    PublicIP = "0.0.0.0"
+    ListenIP = "0.0.0.0"
+    Port = "1993"
+    AuthAdapter = "AuthFile"
+        [Distributor.PublicTLS]
+        CertLoc = "/certs/public/cert/public-distributor-cert.pem"
+        KeyLoc = "/certs/public/key/public-distributor-key.pem"
+        [Distributor.InternalTLS]
+        CertLoc = "/certs/internal/cert/internal-distributor-cert.pem"
+        KeyLoc = "/certs/internal/key/internal-distributor-key.pem"
+        [Distributor.AuthFile]
+        File = "/users/users.txt"
+        Separator = ";"
+
+    [Workers]
+        [Workers.worker-1]
+        PublicIP = "0.0.0.0"
+        ListenIP = "0.0.0.0"
+        MailPort = "20001"
+        SyncPort = "30001"
+        UserStart = 1
+        UserEnd = 10
+        MaildirRoot = "/data/Maildirs/worker-1"
+        CRDTLayerRoot = "/data/crdt-layers/worker-1"
+            [Workers.worker-1.TLS]
+            CertLoc = "/config/internal-worker-1-cert.pem"
+            KeyLoc = "/config/internal-worker-1-key.pem"
+
+    [Storage]
+    PublicIP = "0.0.0.0"
+    ListenIP = "0.0.0.0"
+    MailPort = "21000"
+    SyncPort = "31000"
+    MaildirRoot = "/data/Maildirs/storage"
+    CRDTLayerRoot = "/data/crdt-layers/storage"
+        [Storage.TLS]
+        CertLoc = "/config/internal-storage-cert.pem"
+        KeyLoc = "/config/internal-storage-key.pem"
