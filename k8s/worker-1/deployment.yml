@@ -1,0 +1,53 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: worker-1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: worker-1
+    spec:
+      containers:
+      - name: worker-1
+        image: numbleroot/pluto
+        command:
+        - '/usr/bin/pluto'
+        - '-config'
+        - '/config/pluto.toml'
+        - '-worker'
+        - 'worker-1'
+        ports:
+        - containerPort: 993
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+        - name: pluto-config
+          mountPath: /config
+        - name: pluto-users
+          mountPath: /users
+        - name: root-cert
+          mountPath: /certs/root
+        - name: internal-worker-1-cert
+          mountPath: /certs/internal/cert/
+        - name: internal-worker-1-key
+          mountPath: /certs/internal/key/
+      volumes:
+      - name: pluto-config
+        configMap:
+          name: pluto.toml
+      - name: pluto-users
+        configMap:
+          name: users.txt
+      - name: root-cert
+        secret:
+          secretName: root-cert.pem
+      - name: internal-worker-1-cert
+        secret:
+          secretName: internal-worker-1-cert.pem
+      - name: internal-worker-1-key
+        secret:
+          secretName: internal-worker-1-key.pem
