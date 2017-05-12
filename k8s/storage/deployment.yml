@@ -1,0 +1,52 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: storage
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: storage
+    spec:
+      containers:
+      - name: storage
+        image: numbleroot/pluto
+        command:
+        - '/usr/bin/pluto'
+        - '-config'
+        - '/config/pluto.toml'
+        - '-storage'
+        ports:
+        - containerPort: 993
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+        - name: pluto-config
+          mountPath: /config
+        - name: pluto-users
+          mountPath: /users
+        - name: root-cert
+          mountPath: /certs/root
+        - name: internal-storage-cert
+          mountPath: /certs/internal/cert/
+        - name: internal-storage-key
+          mountPath: /certs/internal/key/
+      volumes:
+      - name: pluto-config
+        configMap:
+          name: pluto.toml
+      - name: pluto-users
+        configMap:
+          name: users.txt
+      - name: root-cert
+        secret:
+          secretName: root-cert.pem
+      - name: internal-storage-cert
+        secret:
+          secretName: internal-storage-cert.pem
+      - name: internal-storage-key
+        secret:
+          secretName: internal-storage-key.pem
