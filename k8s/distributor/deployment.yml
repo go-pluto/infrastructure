@@ -1,0 +1,62 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: distributor
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: distributor
+    spec:
+      containers:
+      - name: distributor
+        image: numbleroot/pluto
+        command:
+        - '/usr/bin/pluto'
+        - '-config'
+        - '/config/pluto.toml'
+        - '-distributor'
+        ports:
+        - containerPort: 993
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+        - name: pluto-config
+          mountPath: /config
+        - name: pluto-users
+          mountPath: /users
+        - name: root-cert
+          mountPath: /certs/root
+        - name: internal-distributor-cert
+          mountPath: /certs/internal/cert/
+        - name: internal-distributor-key
+          mountPath: /certs/internal/key/
+        - name: public-distributor-cert
+          mountPath: /certs/public/cert/
+        - name: public-distributor-key
+          mountPath: /certs/public/key/
+      volumes:
+      - name: pluto-config
+        configMap:
+          name: pluto.toml
+      - name: pluto-users
+        configMap:
+          name: users.txt
+      - name: root-cert
+        secret:
+          secretName: root-cert.pem
+      - name: internal-distributor-cert
+        secret:
+          secretName: internal-distributor-cert.pem
+      - name: internal-distributor-key
+        secret:
+          secretName: internal-distributor-key.pem
+      - name: public-distributor-cert
+        secret:
+          secretName: public-distributor-cert.pem
+      - name: public-distributor-key
+        secret:
+          secretName: public-distributor-key.pem
