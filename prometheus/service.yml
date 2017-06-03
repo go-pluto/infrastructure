@@ -3,6 +3,7 @@ apiVersion: v1
 metadata:
   annotations:
     prometheus.io/scrape: 'true'
+    prometheus.io/probe: '/metrics'
   labels:
     name: prometheus
   name: prometheus
