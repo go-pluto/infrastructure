@@ -8,6 +8,7 @@ metadata:
     app: node-exporter
     name: node-exporter
   name: node-exporter
+  namespace: prometheus
 spec:
   type: ClusterIP
   ports:
