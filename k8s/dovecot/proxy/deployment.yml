@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: proxy
+  namespace: dovecot
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: proxy
+    spec:
+      containers:
+      - name: proxy
+        image: timjuni/dovecot
+        ports:
+        - containerPort: 993
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+        - name: proxy-config
+          mountPath: /config
+        - name: proxy-users
+          mountPath: /users
+      volumes:
+      - name: proxy-config
+        configMap:
+          name: proxy.conf
+      - name: proxy-users
+        configMap:
+          name: proxy.passwd

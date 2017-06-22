@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend
+  name: backend04
   namespace: dovecot
   labels:
     app: backend
@@ -11,3 +11,4 @@ spec:
   - port: 993
   selector:
     app: backend
+  clusterIP: 10.123.250.110

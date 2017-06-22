@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy
+  namespace: dovecot
+  labels:
+    app: proxy
+spec:
+  # type: LoadBalancer
+  ports:
+  - port: 993
+  selector:
+    app: proxy
+  clusterIP: 10.123.250.100

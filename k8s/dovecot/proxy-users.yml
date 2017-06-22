@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: proxy.passwd
+  namespace: dovecot
+data:
+  passwd: |-
+    user1@example.com:::::::host=10.123.250.107
+    user2@example.com:::::::host=10.123.250.107
+    user3@example.com:::::::host=10.123.250.107
+    user4@example.com:::::::host=10.123.250.107
+    user5@example.com:::::::host=10.123.250.107
+    user6@example.com:::::::host=10.123.250.107
+    user7@example.com:::::::host=10.123.250.107
+    user8@example.com:::::::host=10.123.250.107
+    user9@example.com:::::::host=10.123.250.107
+    user10@example.com:::::::host=10.123.250.108
+    user11@example.com:::::::host=10.123.250.108
+    user12@example.com:::::::host=10.123.250.108
+    user13@example.com:::::::host=10.123.250.108
+    user14@example.com:::::::host=10.123.250.108
+    user15@example.com:::::::host=10.123.250.108
+    user16@example.com:::::::host=10.123.250.108
+    user17@example.com:::::::host=10.123.250.108
+    user18@example.com:::::::host=10.123.250.108
+    user19@example.com:::::::host=10.123.250.108
+    user20@example.com:::::::host=10.123.250.109
+    user21@example.com:::::::host=10.123.250.109
+    user22@example.com:::::::host=10.123.250.109
+    user23@example.com:::::::host=10.123.250.109
+    user24@example.com:::::::host=10.123.250.109
+    user25@example.com:::::::host=10.123.250.109
+    user26@example.com:::::::host=10.123.250.109
+    user27@example.com:::::::host=10.123.250.109
+    user28@example.com:::::::host=10.123.250.109
+    user29@example.com:::::::host=10.123.250.109
+    user30@example.com:::::::host=10.123.250.110
