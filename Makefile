@@ -1,3 +1,7 @@
+.PHONY: grafana-forward
+grafana-forward:
+	kubectl --namespace monitoring port-forward `kubectl --namespace monitoring get pods | grep grafana | cut -d ' ' -f1` 3000
+
 .PHONY: prometheus-forward
 prometheus-forward:
 	kubectl --namespace monitoring port-forward `kubectl --namespace monitoring get pods | grep prometheus | cut -d ' ' -f1` 9090
