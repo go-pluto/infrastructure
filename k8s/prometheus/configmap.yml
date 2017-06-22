@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: prometheus.yml
-  namespace: prometheus
+  namespace: monitoring
 data:
   prometheus.yml: |
     # https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml

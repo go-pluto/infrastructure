@@ -2,7 +2,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: prometheus-data
-  namespace: prometheus
+  namespace: monitoring
   annotations:
     volume.beta.kubernetes.io/storage-class: ssd
 spec:
