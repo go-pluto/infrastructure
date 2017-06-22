@@ -1,14 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    prometheus.io/scrape: 'true'
-    prometheus.io/probe: '/metrics'
+  name: node-exporter
+  namespace: prometheus
   labels:
     app: node-exporter
     name: node-exporter
-  name: node-exporter
-  namespace: prometheus
 spec:
   type: ClusterIP
   ports:
@@ -22,12 +19,17 @@ apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
   name: node-exporter
+  namespace: prometheus
 spec:
   template:
     metadata:
+      name: node-exporter
       labels:
         app: node-exporter
-      name: node-exporter
+      annotations:
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "9100"
+        prometheus.io/scrape: "true"
     spec:
       containers:
       - image: prom/node-exporter
