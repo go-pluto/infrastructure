@@ -13,9 +13,8 @@ data:
     HierarchySeparator = "."
 
     [Distributor]
-    PublicIP = "0.0.0.0"
-    ListenIP = "0.0.0.0"
-    Port = "1993"
+    PublicMailAddr = "127.0.0.1:1993"
+    ListenMailAddr = "127.0.0.1:1993"
     AuthAdapter = "AuthFile"
         [Distributor.PublicTLS]
         CertLoc = "/certs/public/cert/public-distributor-cert.pem"
@@ -29,10 +28,10 @@ data:
 
     [Workers]
         [Workers.worker-1]
-        PublicIP = "0.0.0.0"
-        ListenIP = "0.0.0.0"
-        MailPort = "20001"
-        SyncPort = "30001"
+        PublicMailAddr = "0.0.0.0:20001"
+        ListenMailAddr = "0.0.0.0:20001"
+        PublicSyncAddr = "0.0.0.0:30001"
+        ListenSyncAddr = "0.0.0.0:30001"
         UserStart = 1
         UserEnd = 10
         MaildirRoot = "/data/maildirs"
@@ -42,10 +41,10 @@ data:
             KeyLoc = "/certs/internal/key/internal-worker-1-key.pem"
 
     [Storage]
-    PublicIP = "0.0.0.0"
-    ListenIP = "0.0.0.0"
-    MailPort = "21000"
-    SyncPort = "31000"
+    PublicMailAddr = "0.0.0.1:21000"
+    ListenMailAddr = "0.0.0.1:21000"
+    PublicSyncAddr = "0.0.0.1:31000"
+    ListenSyncAddr = "0.0.0.1:31000"
     MaildirRoot = "/data/maildirs"
     CRDTLayerRoot = "/data/crdt-layers"
         [Storage.TLS]
