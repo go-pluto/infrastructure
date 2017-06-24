@@ -10,7 +10,7 @@ spec:
         app: distributor
       annotations:
         prometheus.io/path: "/metrics"
-        prometheus.io/port: "1994"
+        prometheus.io/port: "9999"
         prometheus.io/scrape: "true"
     spec:
       containers:
