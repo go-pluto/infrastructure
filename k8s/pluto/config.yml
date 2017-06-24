@@ -13,8 +13,9 @@ data:
     HierarchySeparator = "."
 
     [Distributor]
-    PublicMailAddr = "127.0.0.1:1993"
-    ListenMailAddr = "127.0.0.1:1993"
+    PublicMailAddr = "0.0.0.0:1993"
+    ListenMailAddr = "0.0.0.0:1993"
+    PrometheusAddr = "0.0.0.0:9999"
     AuthAdapter = "AuthFile"
         [Distributor.PublicTLS]
         CertLoc = "/certs/public/cert/public-distributor-cert.pem"
@@ -32,6 +33,7 @@ data:
         ListenMailAddr = "0.0.0.0:20001"
         PublicSyncAddr = "0.0.0.0:30001"
         ListenSyncAddr = "0.0.0.0:30001"
+        PrometheusAddr = "0.0.0.0:9999"
         UserStart = 1
         UserEnd = 10
         MaildirRoot = "/data/maildirs"
@@ -45,6 +47,7 @@ data:
     ListenMailAddr = "0.0.0.1:21000"
     PublicSyncAddr = "0.0.0.1:31000"
     ListenSyncAddr = "0.0.0.1:31000"
+    PrometheusAddr = "0.0.0.0:9999"
     MaildirRoot = "/data/maildirs"
     CRDTLayerRoot = "/data/crdt-layers"
         [Storage.TLS]
