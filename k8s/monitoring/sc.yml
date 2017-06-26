@@ -2,7 +2,7 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1beta1
 metadata:
   name: ssd
-  namespace: prometheus
+  namespace: monitoring
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-ssd

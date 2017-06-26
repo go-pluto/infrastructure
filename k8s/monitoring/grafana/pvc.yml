@@ -1,8 +1,8 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: prometheus-data
-  namespace: prometheus
+  name: grafana-data
+  namespace: monitoring
   annotations:
     volume.beta.kubernetes.io/storage-class: ssd
 spec:
@@ -10,4 +10,4 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 100Gi
+      storage: 20Gi
