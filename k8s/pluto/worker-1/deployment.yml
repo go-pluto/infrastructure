@@ -12,6 +12,7 @@ spec:
       containers:
       - name: worker-1
         image: numbleroot/pluto
+        imagePullPolicy: Always
         command:
         - '/usr/bin/pluto'
         - '-config'

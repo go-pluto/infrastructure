@@ -12,6 +12,7 @@ spec:
       containers:
       - name: storage
         image: numbleroot/pluto
+        imagePullPolicy: Always
         command:
         - '/usr/bin/pluto'
         - '-config'

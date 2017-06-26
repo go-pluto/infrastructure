@@ -16,6 +16,7 @@ spec:
       containers:
       - name: distributor
         image: numbleroot/pluto
+        imagePullPolicy: Always
         command:
         - '/usr/bin/pluto'
         - '-config'
