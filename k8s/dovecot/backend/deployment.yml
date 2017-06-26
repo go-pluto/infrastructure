@@ -20,11 +20,18 @@ spec:
             cpu: 100m
             memory: 100Mi
         volumeMounts:
+        - name: glusterfsvol
+          mountPath: /mnt/glusterfs
         - name: backend-config
           mountPath: /config
         - name: backend-users
           mountPath: /users
       volumes:
+      - name: glusterfsvol
+        glusterfs:
+          endpoints: glusterfs-cluster
+          path: volume1
+          readOnly: false
       - name: backend-config
         configMap:
           name: backend.conf

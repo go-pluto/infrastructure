@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: benchmark
+  namespace: benchmark
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: benchmark
+    spec:
+      containers:
+      - name: benchmark
+        image: timjuni/imap-benchmark
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+        - name: benchmark-config
+          mountPath: /config
+        - name: benchmark-users
+          mountPath: /users
+      volumes:
+      - name: benchmark-config
+        configMap:
+          name: dovecot-benchmark.conf
+      - name: benchmark-users
+        configMap:
+          name: users.passwd

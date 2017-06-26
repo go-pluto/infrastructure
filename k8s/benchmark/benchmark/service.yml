@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: benchmark
+  namespace: benchmark
+  labels:
+    app: benchmark
+spec:
+  # type: LoadBalancer
+  selector:
+    app: benchmark
