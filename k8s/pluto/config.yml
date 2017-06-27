@@ -5,8 +5,6 @@ metadata:
 data:
   pluto.toml: |-
     RootCertLoc = "/certs/root/root-cert.pem"
-    IntlConnTimeout = 100
-    IntlConnRetry = 400
 
     [IMAP]
     Greeting = "Pluto ready."
