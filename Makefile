@@ -13,6 +13,10 @@ prometheus-configmap:
 	sleep 5
 	curl -s -i -X POST localhost:9090/-/reload
 
+.PHONY: pluto-distributor-forward
+pluto-distributor-forward:
+	kubectl --namespace pluto port-forward `kubectl --namespace pluto get pods | grep distributor | cut -d ' ' -f1` 1993
+
 .PHONY: secrets
 pluto-secrets:
 	mkdir -p k8s/pluto/secrets/
