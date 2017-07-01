@@ -17,7 +17,16 @@ prometheus-configmap:
 pluto-distributor-forward:
 	kubectl --namespace pluto port-forward `kubectl --namespace pluto get pods | grep distributor | cut -d ' ' -f1` 1993
 
-.PHONY: secrets
+.PHONY: pluto-recreate
+pluto-recreate:
+	kubectl --namespace pluto delete deployment distributor
+	kubectl --namespace pluto delete deployment worker-1
+	kubectl --namespace pluto delete deployment storage
+	kubectl apply -f k8s/pluto/distributor/deployment.yml
+	kubectl apply -f k8s/pluto/worker-1/deployment.yml
+	kubectl apply -f k8s/pluto/storage/deployment.yml
+
+.PHONY: pluto-secrets
 pluto-secrets:
 	mkdir -p k8s/pluto/secrets/
 	gopass pluto/gke/pluto/internal-distributor-cert.pem > k8s/pluto/secrets/internal-distributor-cert.pem
