@@ -7,7 +7,9 @@ metadata:
     app: distributor
 spec:
   # type: LoadBalancer
-  ports:
-  - port: 1993
   selector:
     app: distributor
+  ports:
+  - name: public
+    port: 1993
+    targetPort: 1993
