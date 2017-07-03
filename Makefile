@@ -1,25 +1,14 @@
+.PHONY: dovecot-forward
+dovecot-forward:
+	kubectl --namespace dovecot port-forward `kubectl --namespace dovecot get pods | grep proxy | cut -d ' ' -f1` 1993:993
+
 .PHONY: grafana-forward
 grafana-forward:
 	kubectl --namespace monitoring port-forward `kubectl --namespace monitoring get pods | grep grafana | cut -d ' ' -f1` 3000
 
-.PHONY: prometheus-forward
-prometheus-forward:
-	kubectl --namespace monitoring port-forward `kubectl --namespace monitoring get pods | grep prometheus | cut -d ' ' -f1` 9090
-
-# Make sure to run prometheus-forward in another terminal
-.PHONY: prometheus-configmap
-prometheus-configmap:
-	kubectl apply -f k8s/monitoring/prometheus/configmap.yml
-	sleep 5
-	curl -s -i -X POST localhost:9090/-/reload
-
 .PHONY: pluto-distributor-forward
 pluto-distributor-forward:
 	kubectl --namespace pluto port-forward `kubectl --namespace pluto get pods | grep distributor | cut -d ' ' -f1` 1993
-
-.PHONY: dovecot-forward
-dovecot-forward:
-	kubectl --namespace dovecot port-forward `kubectl --namespace dovecot get pods | grep proxy | cut -d ' ' -f1` 1993:993
 
 .PHONY: pluto-recreate
 pluto-recreate:
@@ -53,3 +42,15 @@ pluto-secrets:
 	kubectl --namespace pluto create secret generic public-distributor-key.pem --from-file k8s/pluto/secrets/public-distributor-key.pem
 	kubectl --namespace pluto create secret generic root-cert.pem --from-file k8s/pluto/secrets/root-cert.pem
 	kubectl --namespace pluto create secret generic root-key.pem --from-file k8s/pluto/secrets/root-key.pem
+
+
+# Make sure to run prometheus-forward in another terminal
+.PHONY: prometheus-configmap
+prometheus-configmap:
+	kubectl apply -f k8s/monitoring/prometheus/configmap.yml
+	sleep 5
+	curl -s -i -X POST localhost:9090/-/reload
+
+.PHONY: prometheus-forward
+prometheus-forward:
+	kubectl --namespace monitoring port-forward `kubectl --namespace monitoring get pods | grep prometheus | cut -d ' ' -f1` 9090
