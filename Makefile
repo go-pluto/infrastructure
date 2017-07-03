@@ -21,7 +21,16 @@ pluto-distributor-forward:
 dovecot-forward:
 	kubectl --namespace dovecot port-forward `kubectl --namespace dovecot get pods | grep proxy | cut -d ' ' -f1` 1993:993
 
-.PHONY: secrets
+.PHONY: pluto-recreate
+pluto-recreate:
+	kubectl --namespace pluto delete deployment distributor
+	kubectl --namespace pluto delete deployment worker-1
+	kubectl --namespace pluto delete deployment storage
+	kubectl apply -f k8s/pluto/distributor/deployment.yml
+	kubectl apply -f k8s/pluto/worker-1/deployment.yml
+	kubectl apply -f k8s/pluto/storage/deployment.yml
+
+.PHONY: pluto-secrets
 pluto-secrets:
 	mkdir -p k8s/pluto/secrets/
 	gopass pluto/gke/pluto/internal-distributor-cert.pem > k8s/pluto/secrets/internal-distributor-cert.pem
