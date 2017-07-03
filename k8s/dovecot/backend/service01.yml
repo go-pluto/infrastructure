@@ -11,4 +11,4 @@ spec:
   - port: 993
   selector:
     app: backend
-  clusterIP: 10.123.250.107
+  clusterIP: 10.43.242.100

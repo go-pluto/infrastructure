@@ -17,6 +17,10 @@ prometheus-configmap:
 pluto-distributor-forward:
 	kubectl --namespace pluto port-forward `kubectl --namespace pluto get pods | grep distributor | cut -d ' ' -f1` 1993
 
+.PHONY: dovecot-forward
+dovecot-forward:
+	kubectl --namespace dovecot port-forward `kubectl --namespace dovecot get pods | grep proxy | cut -d ' ' -f1` 1993:993
+
 .PHONY: secrets
 pluto-secrets:
 	mkdir -p k8s/pluto/secrets/

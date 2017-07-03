@@ -28,4 +28,4 @@ spec:
           name: dovecot-benchmark.conf
       - name: benchmark-users
         configMap:
-          name: users.passwd
+          name: dovecot-users.passwd
