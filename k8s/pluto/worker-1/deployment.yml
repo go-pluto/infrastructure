@@ -25,7 +25,10 @@ spec:
         - '-worker'
         - 'worker-1'
         ports:
-        - containerPort: 993
+        - name: mail
+          containerPort: 20001
+        - name: sync
+          containerPort: 30001
         resources:
           requests:
             cpu: 100m

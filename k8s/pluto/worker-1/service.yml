@@ -6,7 +6,12 @@ metadata:
   labels:
     app: worker-1
 spec:
-  ports:
-  - port: 21000
   selector:
     app: worker-1
+  ports:
+  - name: mail
+    port: 20001
+    targetPort: 20001
+  - name: sync
+    port: 30001
+    targetPort: 30001

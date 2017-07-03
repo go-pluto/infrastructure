@@ -6,7 +6,6 @@ metadata:
   labels:
     app: backend
 spec:
-  # type: LoadBalancer
   ports:
   - port: 993
   selector:

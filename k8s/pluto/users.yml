@@ -5,7 +5,6 @@ metadata:
   namespace: pluto
 data:
   users.txt: |-
-    user0;password0
     user1;password1
     user2;password2
     user3;password3
@@ -15,3 +14,4 @@ data:
     user7;password7
     user8;password8
     user9;password9
+    user10;password10

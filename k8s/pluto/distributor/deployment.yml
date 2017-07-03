@@ -24,7 +24,8 @@ spec:
         - '/config/pluto.toml'
         - '-distributor'
         ports:
-        - containerPort: 993
+        - name: public
+          containerPort: 1993
         resources:
           requests:
             cpu: 100m
