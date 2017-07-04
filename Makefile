@@ -1,3 +1,17 @@
+.PHONY: benchmark-dovecot
+benchmark-dovecot:
+	kubectl --namespace benchmark delete job dovecot-benchmark
+  kubectl apply -f k8s/benchmark/jobs/dovecot-benchmark.yml
+
+.PHONY: benchmark-pluto
+benchmark-pluto:
+	kubectl --namespace benchmark delete job pluto-benchmark
+  kubectl apply -f k8s/benchmark/jobs/pluto-benchmark.yml
+
+.PHONY: dovecot-forward
+dovecot-forward:
+	kubectl --namespace dovecot port-forward `kubectl --namespace dovecot get pods | grep proxy | cut -d ' ' -f1` 1993:993
+
 .PHONY: dovecot-forward
 dovecot-forward:
 	kubectl --namespace dovecot port-forward `kubectl --namespace dovecot get pods | grep proxy | cut -d ' ' -f1` 1993:993
