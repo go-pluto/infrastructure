@@ -1,12 +1,12 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: benchmark
+  name: dovecot-benchmark
   namespace: benchmark
 spec:
-  replicas: 1
   template:
     metadata:
+      name: dovecot-benchmark
       labels:
         app: benchmark
     spec:
@@ -29,3 +29,4 @@ spec:
       - name: benchmark-users
         configMap:
           name: dovecot-users.passwd
+      restartPolicy: Never

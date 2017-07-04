@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pluto-benchmark
+  namespace: benchmark
+spec:
+  template:
+    metadata:
+      name: pluto-benchmark
+      labels:
+        app: benchmark
+    spec:
+      containers:
+      - name: benchmark
+        image: timjuni/imap-benchmark
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+        - name: benchmark-config
+          mountPath: /config
+        - name: benchmark-users
+          mountPath: /users
+      volumes:
+      - name: benchmark-config
+        configMap:
+          name: pluto-benchmark.conf
+      - name: benchmark-users
+        configMap:
+          name: pluto-users.passwd
+      restartPolicy: Never
