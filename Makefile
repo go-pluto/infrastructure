@@ -12,10 +12,6 @@ benchmark-pluto:
 dovecot-forward:
 	kubectl --namespace dovecot port-forward `kubectl --namespace dovecot get pods | grep proxy | cut -d ' ' -f1` 1993:993
 
-.PHONY: dovecot-forward
-dovecot-forward:
-	kubectl --namespace dovecot port-forward `kubectl --namespace dovecot get pods | grep proxy | cut -d ' ' -f1` 1993:993
-
 .PHONY: grafana-forward
 grafana-forward:
 	kubectl --namespace monitoring port-forward `kubectl --namespace monitoring get pods | grep grafana | cut -d ' ' -f1` 3000
