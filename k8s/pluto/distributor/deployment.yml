@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: distributor
-        image: metalmatze/pluto
+        image: gopluto/pluto
         imagePullPolicy: Always
         command:
         - '/usr/bin/pluto'
