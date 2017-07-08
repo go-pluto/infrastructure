@@ -19,7 +19,7 @@ spec:
         image: gopluto/pluto
         imagePullPolicy: Always
         command:
-        - '/usr/bin/pluto'
+        - '/bin/pluto'
         - '-config'
         - '/config/pluto.toml'
         - '-worker'
