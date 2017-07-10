@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: benchmark
-        image: timjuni/imap-benchmark
+        image: gopluto/benchmark
         resources:
           requests:
             cpu: 100m
