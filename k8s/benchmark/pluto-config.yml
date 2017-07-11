@@ -12,8 +12,8 @@ data:
     TLS = true # unused
 
     [settings]
-    threads = 1
-    sessions = 5
+    threads = 8
+    sessions = 150
     throttle = 50 # unused
     seed = 3223372035854775808
 
