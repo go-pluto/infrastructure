@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: proxy.conf
+  namespace: dovecot-dsync
+data:
+  dovecot.conf: |-
+    # Dovecot config file
+    protocols = imap
+
+    # It's nice to have separate log files for Dovecot. You could do this
+    # by changing syslog configuration also, but this is easier.
+    log_path = /var/log/dovecot.log
+    info_log_path = /var/log/dovecot-info.log
+
+    # Disable SSL for now.
+    ssl = yes
+    ssl_cert = </etc/dovecot/dovecot.pem
+    ssl_key = </etc/dovecot/private/dovecot.pem
+    disable_plaintext_auth = no
+
+
+    # Authentication configuration:
+    auth default {
+      mechanisms = plain
+
+      user = nobody
+
+      userdb static {
+        args = uid=0 gid=0
+      }
+
+      passdb {
+        driver = passwd-file
+        args = /users/passwd
+        default_fields = proxy=y nopassword=y ssl=any-cert
+      }
+    }
+
+
