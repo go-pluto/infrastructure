@@ -35,6 +35,8 @@ spec:
             cpu: 100m
             memory: 100Mi
         volumeMounts:
+        - name: maildirs
+          mountPath: /data/maildirs
         - name: pluto-config
           mountPath: /config
         - name: pluto-users
@@ -45,7 +47,24 @@ spec:
           mountPath: /certs/internal/cert/
         - name: internal-worker-1-key
           mountPath: /certs/internal/key/
+      - name: maildir-exporter
+        image: gopluto/maildir_exporter
+        imagePullPolicy: Always
+        command:
+        - '/bin/maildir_exporter'
+        - '-logLevel'
+        - 'debug'
+        - '-maildirRootPath'
+        - '/data/maildirs'
+        ports:
+        - name: metrics
+          containerPort: 9275
+        volumeMounts:
+        - name: maildirs
+          mountPath: /data/maildirs
       volumes:
+      - name: maildirs
+        emptyDir: {}
       - name: pluto-config
         configMap:
           name: pluto.toml
