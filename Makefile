@@ -25,9 +25,9 @@ pluto-recreate:
 	kubectl --namespace pluto delete deployment distributor
 	kubectl --namespace pluto delete deployment worker-1
 	kubectl --namespace pluto delete deployment storage
-	kubectl apply -f k8s/pluto/distributor/deployment.yml
-	kubectl apply -f k8s/pluto/worker-1/deployment.yml
-	kubectl apply -f k8s/pluto/storage/deployment.yml
+	kubectl apply -f k8s/pluto/distributor/
+	kubectl apply -f k8s/pluto/worker-1/
+	kubectl apply -f k8s/pluto/storage/
 
 .PHONY: pluto-secrets
 pluto-secrets:
