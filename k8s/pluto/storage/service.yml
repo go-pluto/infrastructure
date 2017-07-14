@@ -10,8 +10,8 @@ spec:
     app: storage
   ports:
   - name: mail
-    port: 20001
-    targetPort: 20001
+    port: 21000
+    targetPort: 21000
   - name: sync
-    port: 30001
-    targetPort: 30001
+    port: 31000
+    targetPort: 31000
