@@ -9,7 +9,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - name: scrape
+  - name: metrics
     port: 9100
     protocol: TCP
   selector:

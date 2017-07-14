@@ -11,7 +11,6 @@ spec:
         app: worker-1
       annotations:
         prometheus.io/path: "/metrics"
-        prometheus.io/port: "9999"
         prometheus.io/scrape: "true"
     spec:
       containers:
@@ -29,6 +28,8 @@ spec:
           containerPort: 20001
         - name: sync
           containerPort: 30001
+        - name: metrics
+          containerPort: 9999
         resources:
           requests:
             cpu: 100m

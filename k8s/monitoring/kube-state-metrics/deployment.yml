@@ -12,7 +12,6 @@ spec:
         app: kube-state-metrics
       annotations:
         prometheus.io/path: "/metrics"
-        prometheus.io/port: "8080"
         prometheus.io/scrape: "true"
     spec:
       serviceAccountName: kube-state-metrics
@@ -20,7 +19,7 @@ spec:
       - name: kube-state-metrics
         image: gcr.io/google_containers/kube-state-metrics:v0.5.0
         ports:
-        - name: http-metrics
+        - name: metrics
           containerPort: 8080
         readinessProbe:
           httpGet:
