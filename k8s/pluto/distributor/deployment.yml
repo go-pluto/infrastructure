@@ -25,7 +25,7 @@ spec:
         ports:
         - name: public
           containerPort: 1993
-        - name: metrics 
+        - name: metrics
           containerPort: 9999
         resources:
           requests:

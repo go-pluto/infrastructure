@@ -7,48 +7,59 @@ data:
   pluto.toml: |-
     RootCertLoc = "/certs/root/root-cert.pem"
 
+
     [IMAP]
     Greeting = "Pluto ready."
     HierarchySeparator = "."
 
+
     [Distributor]
+    Name = "distributor"
     PublicMailAddr = "distributor:1993"
     ListenMailAddr = "0.0.0.0:1993"
     PrometheusAddr = "0.0.0.0:9999"
+    PublicCertLoc = "/certs/public/cert/public-distributor-cert.pem"
+    PublicKeyLoc = "/certs/public/key/public-distributor-key.pem"
+    InternalCertLoc = "/certs/internal/cert/internal-distributor-cert.pem"
+    InternalKeyLoc = "/certs/internal/key/internal-distributor-key.pem"
     AuthAdapter = "AuthFile"
-        [Distributor.PublicTLS]
-        CertLoc = "/certs/public/cert/public-distributor-cert.pem"
-        KeyLoc = "/certs/public/key/public-distributor-key.pem"
-        [Distributor.InternalTLS]
-        CertLoc = "/certs/internal/cert/internal-distributor-cert.pem"
-        KeyLoc = "/certs/internal/key/internal-distributor-key.pem"
+
         [Distributor.AuthFile]
         File = "/users/users.txt"
         Separator = ";"
 
+
     [Workers]
+
         [Workers.worker-1]
+        Name = "worker-1"
         PublicMailAddr = "worker-1:20001"
         ListenMailAddr = "0.0.0.0:20001"
         PublicSyncAddr = "worker-1:30001"
         ListenSyncAddr = "0.0.0.0:30001"
         PrometheusAddr = "0.0.0.0:9999"
+        CertLoc = "/certs/internal/cert/internal-worker-1-cert.pem"
+        KeyLoc = "/certs/internal/key/internal-worker-1-key.pem"
         UserStart = 1
         UserEnd = 10
         MaildirRoot = "/data/maildirs"
         CRDTLayerRoot = "/data/crdt-layers"
-            [Workers.worker-1.TLS]
-            CertLoc = "/certs/internal/cert/internal-worker-1-cert.pem"
-            KeyLoc = "/certs/internal/key/internal-worker-1-key.pem"
+
+            [Workers.worker-1.Peers.subnet-1]
+            storage = "storage:31000"
+
 
     [Storage]
+    Name = "storage"
     PublicMailAddr = "storage:21000"
     ListenMailAddr = "0.0.0.0:21000"
     PublicSyncAddr = "storage:31000"
     ListenSyncAddr = "0.0.0.0:31000"
     PrometheusAddr = "0.0.0.0:9999"
+    CertLoc = "/certs/internal/cert/internal-storage-cert.pem"
+    KeyLoc = "/certs/internal/key/internal-storage-key.pem"
     MaildirRoot = "/data/maildirs"
     CRDTLayerRoot = "/data/crdt-layers"
-        [Storage.TLS]
-        CertLoc = "/certs/internal/cert/internal-storage-cert.pem"
-        KeyLoc = "/certs/internal/key/internal-storage-key.pem"
+
+        [Storage.Peers.subnet-1]
+        worker-1 = "worker-1:30001"
