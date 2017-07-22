@@ -6,6 +6,7 @@ metadata:
   labels:
     app: worker-1
 spec:
+  type: NodePort
   selector:
     app: worker-1
   ports:
