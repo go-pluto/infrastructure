@@ -13,6 +13,11 @@ spec:
       containers:
       - name: benchmark
         image: gopluto/benchmark
+        env:
+        - name: GOOGLE_CLOUD_PROJECT
+          value: pluto-167312
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /certs/accounts/service-account.json
         resources:
           requests:
             cpu: 100m
@@ -22,6 +27,8 @@ spec:
           mountPath: /config
         - name: benchmark-users
           mountPath: /users
+        - name: benchmark-serviceaccount
+          mountPath: /certs/accounts
       volumes:
       - name: benchmark-config
         configMap:
@@ -29,4 +36,7 @@ spec:
       - name: benchmark-users
         configMap:
           name: dovecot-users.passwd
+      - name: benchmark-serviceaccount
+        secret:
+          secretName: service-account.json
       restartPolicy: Never
