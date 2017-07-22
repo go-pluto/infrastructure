@@ -6,7 +6,7 @@ metadata:
   labels:
     app: distributor
 spec:
-  # type: LoadBalancer
+  type: NodePort
   selector:
     app: distributor
   ports:
