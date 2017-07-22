@@ -31,6 +31,7 @@ data:
         regex: default;kubernetes;https
 
     - job_name: 'kubernetes-pods'
+      scrape_interval: 5s
       kubernetes_sd_configs:
       - role: pod
       relabel_configs:
