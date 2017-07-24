@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-3
+  namespace: dovecot-simple
+  labels:
+    app: backend-3
+spec:
+  ports:
+  - port: 993
+  selector:
+    app: backend-3
+  clusterIP: 10.43.244.102

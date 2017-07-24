@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: backend-3
+  namespace: dovecot-simple
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: backend-3
+    spec:
+      containers:
+      - name: backend
+        image: timjuni/dovecot
+        ports:
+        - containerPort: 993
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+        - name: maildir
+          mountPath: /data/maildir
+        - name: backend-config
+          mountPath: /config
+        - name: backend-users
+          mountPath: /users
+      volumes:
+      - name: maildir
+        emptyDir: {}
+      - name: backend-config
+        configMap:
+          name: backend.conf
+      - name: backend-users
+        configMap:
+          name: users.passwd
