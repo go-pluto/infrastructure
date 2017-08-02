@@ -1,0 +1,87 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: distributor
+  namespace: pluto
+  annotations:
+    federation.kubernetes.io/replica-set-preferences: |
+        {
+            "rebalance": true,
+            "clusters": {
+                "europe-west1-b": {
+                    "minReplicas": 1,
+                    "maxReplicas": 1,
+                    "weight": 1
+                },
+                "us-east1-b": {
+                    "minReplicas": 1,
+                    "maxReplicas": 1,
+                    "weight": 1
+                }
+            }
+        }
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: distributor
+      annotations:
+        prometheus.io/path: "/metrics"
+        prometheus.io/scrape: "true"
+    spec:
+      containers:
+      - name: distributor
+        image: gopluto/pluto
+        imagePullPolicy: Always
+        command:
+        - '/bin/pluto'
+        - '-config'
+        - '/config/pluto.toml'
+        - '-distributor'
+        ports:
+        - name: public
+          containerPort: 1993
+        - name: metrics
+          containerPort: 9999
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+        - name: pluto-config
+          mountPath: /config
+        - name: pluto-users
+          mountPath: /users
+        - name: root-cert
+          mountPath: /certs/root
+        - name: internal-distributor-cert
+          mountPath: /certs/internal/cert/
+        - name: internal-distributor-key
+          mountPath: /certs/internal/key/
+        - name: public-distributor-cert
+          mountPath: /certs/public/cert/
+        - name: public-distributor-key
+          mountPath: /certs/public/key/
+      volumes:
+      - name: pluto-config
+        configMap:
+          name: pluto.toml
+      - name: pluto-users
+        configMap:
+          name: users.txt
+      - name: root-cert
+        secret:
+          secretName: root-cert.pem
+      - name: internal-distributor-cert
+        secret:
+          secretName: internal-distributor-cert.pem
+      - name: internal-distributor-key
+        secret:
+          secretName: internal-distributor-key.pem
+      - name: public-distributor-cert
+        secret:
+          secretName: public-distributor-cert.pem
+      - name: public-distributor-key
+        secret:
+          secretName: public-distributor-key.pem

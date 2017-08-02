@@ -1,0 +1,81 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: storage
+  namespace: pluto
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: storage
+      annotations:
+        prometheus.io/path: "/metrics"
+        prometheus.io/scrape: "true"
+    spec:
+      containers:
+      - name: storage
+        image: gopluto/pluto
+        imagePullPolicy: Always
+        command:
+        - '/bin/pluto'
+        - '-config'
+        - '/config/pluto.toml'
+        - '-storage'
+        ports:
+        - name: mail
+          containerPort: 20001
+        - name: sync
+          containerPort: 30001
+        - name: metrics
+          containerPort: 9999
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+        - name: maildirs
+          mountPath: /data/maildirs
+        - name: pluto-config
+          mountPath: /config
+        - name: pluto-users
+          mountPath: /users
+        - name: root-cert
+          mountPath: /certs/root
+        - name: internal-storage-cert
+          mountPath: /certs/internal/cert/
+        - name: internal-storage-key
+          mountPath: /certs/internal/key/
+      - name: maildir-exporter
+        image: gopluto/maildir_exporter
+        imagePullPolicy: Always
+        command:
+        - '/bin/maildir_exporter'
+        - '-logLevel'
+        - 'debug'
+        - '-maildirRootPath'
+        - '/data/maildirs'
+        ports:
+        - name: metrics
+          containerPort: 9275
+        volumeMounts:
+        - name: maildirs
+          mountPath: /data/maildirs
+      volumes:
+      - name: maildirs
+        emptyDir: {}
+      - name: pluto-config
+        configMap:
+          name: pluto.toml
+      - name: pluto-users
+        configMap:
+          name: users.txt
+      - name: root-cert
+        secret:
+          secretName: root-cert.pem
+      - name: internal-storage-cert
+        secret:
+          secretName: internal-storage-cert.pem
+      - name: internal-storage-key
+        secret:
+          secretName: internal-storage-key.pem
