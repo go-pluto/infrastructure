@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: pluto.toml
+  name: eu-pluto.toml
   namespace: pluto
 data:
   pluto.toml: |-
