@@ -15,7 +15,7 @@ data:
 
     [Distributor]
     Name = "distributor"
-    PublicMailAddr = "distributor.pluto.federation.svc.federation.go-pluto.de:1993"
+    PublicMailAddr = "distributor:1993"
     ListenMailAddr = "0.0.0.0:1993"
     PrometheusAddr = "0.0.0.0:9999"
     PublicCertLoc = "/certs/public/cert/public-distributor-cert.pem"
@@ -31,21 +31,58 @@ data:
 
     [Workers]
 
-        [Workers.worker-1]
-        Name = "worker-1"
-        PublicMailAddr = "worker-1:20001"
+        [Workers.eu-worker-1]
+        Name = "eu-worker-1"
+        PublicMailAddr = "eu-worker-1:20001"
         ListenMailAddr = "0.0.0.0:20001"
-        PublicSyncAddr = "worker-1:30001"
+        PublicSyncAddr = "eu-worker-1:30001"
         ListenSyncAddr = "0.0.0.0:30001"
         PrometheusAddr = "0.0.0.0:9999"
-        CertLoc = "/certs/internal/cert/internal-worker-1-cert.pem"
-        KeyLoc = "/certs/internal/key/internal-worker-1-key.pem"
+        CertLoc = "/certs/internal/cert/internal-eu-worker-1-cert.pem"
+        KeyLoc = "/certs/internal/key/internal-eu-worker-1-key.pem"
         UserStart = 1
         UserEnd = 10
         MaildirRoot = "/data/maildirs"
         CRDTLayerRoot = "/data/crdt-layers"
 
-            [Workers.worker-1.Peers.subnet-1]
+            [Workers.eu-worker-1.Peers.subnet-1]
+            us-worker-1 = "worker-1.pluto.federation.svc.us-east1.federation.go-pluto.de:30001"
+            storage = "storage.pluto.federation.svc.federation.go-pluto.de:31000"
+
+        [Workers.eu-worker-2]
+        Name = "eu-worker-2"
+        PublicMailAddr = "eu-worker-2:20001"
+        ListenMailAddr = "0.0.0.0:20001"
+        PublicSyncAddr = "eu-worker-2:30001"
+        ListenSyncAddr = "0.0.0.0:30001"
+        PrometheusAddr = "0.0.0.0:9999"
+        CertLoc = "/certs/internal/cert/internal-eu-worker-2-cert.pem"
+        KeyLoc = "/certs/internal/key/internal-eu-worker-2-key.pem"
+        UserStart = 1
+        UserEnd = 10
+        MaildirRoot = "/data/maildirs"
+        CRDTLayerRoot = "/data/crdt-layers"
+
+            [Workers.eu-worker-2.Peers.subnet-1]
+            us-worker-2 = "worker-2.pluto.federation.svc.us-east1.federation.go-pluto.de:30001"
+            storage = "storage.pluto.federation.svc.federation.go-pluto.de:31000"
+
+        [Workers.eu-worker-3]
+        Name = "eu-worker-3"
+        PublicMailAddr = "eu-worker-3:20001"
+        ListenMailAddr = "0.0.0.0:20001"
+        PublicSyncAddr = "eu-worker-3:30001"
+        ListenSyncAddr = "0.0.0.0:30001"
+        PrometheusAddr = "0.0.0.0:9999"
+        CertLoc = "/certs/internal/cert/internal-eu-worker-3-cert.pem"
+        KeyLoc = "/certs/internal/key/internal-eu-worker-3-key.pem"
+        UserStart = 1
+        UserEnd = 10
+        MaildirRoot = "/data/maildirs"
+        CRDTLayerRoot = "/data/crdt-layers"
+
+            [Workers.eu-worker-3.Peers.subnet-1]
+            us-worker-3 = "worker-3.pluto.federation.svc.us-east1.federation.go-pluto.de:30001"
             storage = "storage.pluto.federation.svc.federation.go-pluto.de:31000"
 
 
@@ -62,4 +99,13 @@ data:
     CRDTLayerRoot = "/data/crdt-layers"
 
         [Storage.Peers.subnet-1]
-        worker-1 = "worker-1:30001"
+        eu-worker-1 = "eu-worker-1.pluto.federation.svc.europe-west1.federation.go-pluto.de:30001"
+        us-worker-1 = "us-worker-1.pluto.federation.svc.us-east1.federation.go-pluto.de:30001"
+
+        [Storage.Peers.subnet-2]
+        eu-worker-2 = "eu-worker-2.pluto.federation.svc.europe-west1.federation.go-pluto.de:30001"
+        us-worker-2 = "us-worker-2.pluto.federation.svc.us-east1.federation.go-pluto.de:30001"
+
+        [Storage.Peers.subnet-3]
+        eu-worker-3 = "eu-worker-3.pluto.federation.svc.europe-west1.federation.go-pluto.de:30001"
+        us-worker-3 = "us-worker-3.pluto.federation.svc.us-east1.federation.go-pluto.de:30001"
