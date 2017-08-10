@@ -3,8 +3,25 @@ apiVersion: extensions/v1beta1
 metadata:
   name: prometheus
   namespace: monitoring
+  annotations:
+    federation.kubernetes.io/deployment-preferences: |
+        {
+            "rebalance": true,
+            "clusters": {
+                "europe-west1-b": {
+                    "minReplicas": 1,
+                    "maxReplicas": 1,
+                    "weight": 1
+                },
+                "us-east1-b": {
+                    "minReplicas": 1,
+                    "maxReplicas": 1,
+                    "weight": 1
+                }
+            }
+        }
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: prometheus
@@ -17,8 +34,8 @@ spec:
       containers:
       - name: prometheus
         image: quay.io/prometheus/prometheus:v1.7.1
-        # args:
-        #  - '-storage.local.retention=6h'
+        args:
+         # - '-storage.local.retention=6h'
         #  - '-storage.local.memory-chunks=500000'
         #  - '-config.file=/etc/prometheus/prometheus.yml'
         ports:
