@@ -1,10 +1,10 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: worker-1
+  name: eu-worker-2
   namespace: pluto
   annotations:
-    federation.kubernetes.io/replica-set-preferences: |
+    federation.kubernetes.io/deployment-preferences: |
         {
             "rebalance": true,
             "clusters": {
@@ -14,24 +14,24 @@ metadata:
                     "weight": 1
                 },
                 "us-east1-b": {
-                    "minReplicas": 1,
-                    "maxReplicas": 1,
-                    "weight": 1
+                    "minReplicas": 0,
+                    "maxReplicas": 0,
+                    "weight": 0
                 }
             }
         }
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
-        app: worker-1
+        app: worker-2
       annotations:
         prometheus.io/path: "/metrics"
         prometheus.io/scrape: "true"
     spec:
       containers:
-      - name: worker-1
+      - name: worker-2
         image: gopluto/pluto
         imagePullPolicy: Always
         command:
@@ -39,7 +39,7 @@ spec:
         - '-config'
         - '/config/pluto.toml'
         - '-worker'
-        - 'worker-1'
+        - 'eu-worker-2'
         ports:
         - name: mail
           containerPort: 20001
@@ -60,9 +60,9 @@ spec:
           mountPath: /users
         - name: root-cert
           mountPath: /certs/root
-        - name: internal-worker-1-cert
+        - name: internal-worker-2-cert
           mountPath: /certs/internal/cert/
-        - name: internal-worker-1-key
+        - name: internal-worker-2-key
           mountPath: /certs/internal/key/
       - name: maildir-exporter
         image: gopluto/maildir_exporter
@@ -84,16 +84,16 @@ spec:
         emptyDir: {}
       - name: pluto-config
         configMap:
-          name: pluto.toml
+          name: eu-pluto.toml
       - name: pluto-users
         configMap:
           name: users.txt
       - name: root-cert
         secret:
           secretName: root-cert.pem
-      - name: internal-worker-1-cert
+      - name: internal-worker-2-cert
         secret:
-          secretName: internal-worker-1-cert.pem
-      - name: internal-worker-1-key
+          secretName: internal-eu-worker-2-cert.pem
+      - name: internal-worker-2-key
         secret:
-          secretName: internal-worker-1-key.pem
+          secretName: internal-eu-worker-2-key.pem

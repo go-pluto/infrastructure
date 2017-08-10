@@ -1,27 +1,45 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: storage
+  name: us-worker-2
   namespace: pluto
+  annotations:
+    federation.kubernetes.io/deployment-preferences: |
+        {
+            "rebalance": true,
+            "clusters": {
+                "europe-west1-b": {
+                    "minReplicas": 0,
+                    "maxReplicas": 0,
+                    "weight": 0
+                },
+                "us-east1-b": {
+                    "minReplicas": 1,
+                    "maxReplicas": 1,
+                    "weight": 1
+                }
+            }
+        }
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: storage
+        app: worker-2
       annotations:
         prometheus.io/path: "/metrics"
         prometheus.io/scrape: "true"
     spec:
       containers:
-      - name: storage
+      - name: worker-2
         image: gopluto/pluto
         imagePullPolicy: Always
         command:
         - '/bin/pluto'
         - '-config'
         - '/config/pluto.toml'
-        - '-storage'
+        - '-worker'
+        - 'us-worker-2'
         ports:
         - name: mail
           containerPort: 20001
@@ -42,9 +60,9 @@ spec:
           mountPath: /users
         - name: root-cert
           mountPath: /certs/root
-        - name: internal-storage-cert
+        - name: internal-worker-2-cert
           mountPath: /certs/internal/cert/
-        - name: internal-storage-key
+        - name: internal-worker-2-key
           mountPath: /certs/internal/key/
       - name: maildir-exporter
         image: gopluto/maildir_exporter
@@ -66,16 +84,16 @@ spec:
         emptyDir: {}
       - name: pluto-config
         configMap:
-          name: eu-pluto.toml
+          name: us-pluto.toml
       - name: pluto-users
         configMap:
           name: users.txt
       - name: root-cert
         secret:
           secretName: root-cert.pem
-      - name: internal-storage-cert
+      - name: internal-worker-2-cert
         secret:
-          secretName: internal-storage-cert.pem
-      - name: internal-storage-key
+          secretName: internal-us-worker-2-cert.pem
+      - name: internal-worker-2-key
         secret:
-          secretName: internal-storage-key.pem
+          secretName: internal-us-worker-2-key.pem
