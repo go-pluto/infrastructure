@@ -1,0 +1,99 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: eu-worker-2
+  namespace: pluto
+  annotations:
+    federation.kubernetes.io/deployment-preferences: |
+        {
+            "rebalance": true,
+            "clusters": {
+                "europe-west1-b": {
+                    "minReplicas": 1,
+                    "maxReplicas": 1,
+                    "weight": 1
+                },
+                "us-east1-b": {
+                    "minReplicas": 0,
+                    "maxReplicas": 0,
+                    "weight": 0
+                }
+            }
+        }
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: worker-2
+      annotations:
+        prometheus.io/path: "/metrics"
+        prometheus.io/scrape: "true"
+    spec:
+      containers:
+      - name: worker-2
+        image: gopluto/pluto
+        imagePullPolicy: Always
+        command:
+        - '/bin/pluto'
+        - '-config'
+        - '/config/pluto.toml'
+        - '-worker'
+        - 'eu-worker-2'
+        ports:
+        - name: mail
+          containerPort: 20001
+        - name: sync
+          containerPort: 30001
+        - name: metrics
+          containerPort: 9999
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+        - name: maildirs
+          mountPath: /data/maildirs
+        - name: pluto-config
+          mountPath: /config
+        - name: pluto-users
+          mountPath: /users
+        - name: root-cert
+          mountPath: /certs/root
+        - name: internal-worker-2-cert
+          mountPath: /certs/internal/cert/
+        - name: internal-worker-2-key
+          mountPath: /certs/internal/key/
+      - name: maildir-exporter
+        image: gopluto/maildir_exporter
+        imagePullPolicy: Always
+        command:
+        - '/bin/maildir_exporter'
+        - '-logLevel'
+        - 'debug'
+        - '-maildirRootPath'
+        - '/data/maildirs'
+        ports:
+        - name: metrics
+          containerPort: 9275
+        volumeMounts:
+        - name: maildirs
+          mountPath: /data/maildirs
+      volumes:
+      - name: maildirs
+        emptyDir: {}
+      - name: pluto-config
+        configMap:
+          name: eu-pluto.toml
+      - name: pluto-users
+        configMap:
+          name: users.txt
+      - name: root-cert
+        secret:
+          secretName: root-cert.pem
+      - name: internal-worker-2-cert
+        secret:
+          secretName: internal-eu-worker-2-cert.pem
+      - name: internal-worker-2-key
+        secret:
+          secretName: internal-eu-worker-2-key.pem

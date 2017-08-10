@@ -36,33 +36,35 @@ pluto-recreate:
 .PHONY: pluto-secrets
 pluto-secrets:
 	mkdir -p k8s/pluto/secrets/
-	gopass show -f pluto/gke/pluto/internal-distributor-cert.pem > k8s/pluto/secrets/internal-distributor-cert.pem
-	gopass show -f pluto/gke/pluto/internal-distributor-key.pem > k8s/pluto/secrets/internal-distributor-key.pem
-	gopass show -f pluto/gke/pluto/internal-storage-cert.pem > k8s/pluto/secrets/internal-storage-cert.pem
-	gopass show -f pluto/gke/pluto/internal-storage-key.pem > k8s/pluto/secrets/internal-storage-key.pem
-	gopass show -f pluto/gke/pluto/internal-worker-1-cert.pem > k8s/pluto/secrets/internal-worker-1-cert.pem
-	gopass show -f pluto/gke/pluto/internal-worker-1-key.pem > k8s/pluto/secrets/internal-worker-1-key.pem
-	gopass show -f pluto/gke/pluto/public-distributor-cert.pem > k8s/pluto/secrets/public-distributor-cert.pem
-	gopass show -f pluto/gke/pluto/public-distributor-key.pem > k8s/pluto/secrets/public-distributor-key.pem
-	gopass show -f pluto/gke/pluto/root-cert.pem > k8s/pluto/secrets/root-cert.pem
-	gopass show -f pluto/gke/pluto/root-key.pem > k8s/pluto/secrets/root-key.pem
-	kubectl --namespace pluto create secret generic internal-distributor-cert.pem --from-file k8s/pluto/secrets/internal-distributor-cert.pem
-	kubectl --namespace pluto create secret generic internal-distributor-key.pem --from-file k8s/pluto/secrets/internal-distributor-key.pem
-	kubectl --namespace pluto create secret generic internal-storage-cert.pem --from-file k8s/pluto/secrets/internal-storage-cert.pem
-	kubectl --namespace pluto create secret generic internal-storage-key.pem --from-file k8s/pluto/secrets/internal-storage-key.pem
-	kubectl --namespace pluto create secret generic internal-worker-1-cert.pem --from-file k8s/pluto/secrets/internal-worker-1-cert.pem
-	kubectl --namespace pluto create secret generic internal-worker-1-key.pem --from-file k8s/pluto/secrets/internal-worker-1-key.pem
-	kubectl --namespace pluto create secret generic public-distributor-cert.pem --from-file k8s/pluto/secrets/public-distributor-cert.pem
-	kubectl --namespace pluto create secret generic public-distributor-key.pem --from-file k8s/pluto/secrets/public-distributor-key.pem
-	kubectl --namespace pluto create secret generic root-cert.pem --from-file k8s/pluto/secrets/root-cert.pem
-	kubectl --namespace pluto create secret generic root-key.pem --from-file k8s/pluto/secrets/root-key.pem
+	for name in internal-distributor-cert internal-storage-cert internal-worker-1-cert public-distributor-cert root-cert; do \
+		gopass show -f pluto/gke/pluto/$$name-cert.pem > k8s/pluto/secrets/$$name-cert.pem; \
+		gopass show -f pluto/gke/pluto/$$name-key.pem > k8s/pluto/secrets/$$name-key.pem; \
+		kubectl --namespace pluto create secret generic $$name-cert.pem --from-file k8s/pluto/secrets/$$name-cert.pem; \
+		kubectl --namespace pluto create secret generic $$name-key.pem --from-file k8s/pluto/secrets/$$name-key.pem; \
+	done
+
+.PHONY: pluto-fed-secrets
+pluto-fed-secrets:
+	mkdir -p k8s/pluto-federation/secrets/
+	for name in internal-distributor internal-eu-worker-1 internal-eu-worker-2 internal-eu-worker-3 internal-storage internal-us-worker-1 internal-us-worker-2 internal-us-worker-3 public-distributor root; do \
+		gopass show -f pluto/gke/pluto-federation/$$name-cert.pem > k8s/pluto-federation/secrets/$$name-cert.pem; \
+		gopass show -f pluto/gke/pluto-federation/$$name-key.pem > k8s/pluto-federation/secrets/$$name-key.pem; \
+		kubectl --namespace pluto create secret generic $$name-cert.pem --from-file k8s/pluto-federation/secrets/$$name-cert.pem; \
+		kubectl --namespace pluto create secret generic $$name-key.pem --from-file k8s/pluto-federation/secrets/$$name-key.pem; \
+	done
+
+.PHONY: pluto-fed-secrets-rm
+pluto-fed-secrets-rm:
+	for name in internal-distributor internal-eu-worker-1 internal-eu-worker-2 internal-eu-worker-3 internal-storage internal-us-worker-1 internal-us-worker-2 internal-us-worker-3 public-distributor root; do \
+		kubectl --namespace pluto delete secret $$name-cert.pem; \
+		kubectl --namespace pluto delete secret $$name-key.pem; \
+	done
 
 .PHONY: benchmark-secrets
 benchmark-secrets:
 	mkdir -p k8s/benchmark/secrets/
 	gopass show -f pluto/gke/benchmark/service-account.json > k8s/benchmark/secrets/service-account.json
 	kubectl --namespace benchmark create secret generic service-account.json --from-file k8s/benchmark/secrets/service-account.json
-
 
 # Make sure to run prometheus-forward in another terminal
 .PHONY: prometheus-configmap
