@@ -1,0 +1,13 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: backend2-data
+  namespace: dovecot-dsync
+  annotations:
+    volume.beta.kubernetes.io/storage-class: ssd
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi

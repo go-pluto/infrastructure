@@ -8,14 +8,14 @@ data:
     # This is an example config file
 
     [server]
-    addr = "proxy.dovecot-simple.federation.svc.europe-west1.federation.go-pluto.de:993"
+    addr = "35.196.197.212:993"
     TLS = true # unused
 
     [settings]
     threads = 90
     sessions = 600
     throttle = 50 # unused
-    seed = 523432432751235809
+    seed = 123432432751135809
 
     [session]
     minlength = 15

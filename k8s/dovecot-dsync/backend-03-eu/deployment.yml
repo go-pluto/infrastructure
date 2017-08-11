@@ -1,40 +1,41 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: backend
+  name: backend-3-eu
   namespace: dovecot-dsync
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: backend
+        app: backend-3-eu
     spec:
       containers:
-      - name: backend
-        image: timjuni/dovecot
+      - name: backend-3-eu
+        image: gopluto/dovecot
         ports:
-        - containerPort: 993
+        - name: imap
+          containerPort: 993
+        - name: admin
+          containerPort: 12345
         resources:
           requests:
             cpu: 100m
             memory: 100Mi
         volumeMounts:
-        - name: glusterfsvol
-          mountPath: /mnt/glusterfs
+        - name: maildir
+          mountPath: /data/maildir
         - name: backend-config
           mountPath: /config
         - name: backend-users
           mountPath: /users
       volumes:
-      - name: glusterfsvol
-        glusterfs:
-          endpoints: glusterfs-cluster
-          path: volume1
-          readOnly: false
+      - name: maildir
+        persistentVolumeClaim:
+          claimName: backend3-data
       - name: backend-config
         configMap:
-          name: backend.conf
+          name: backend-3.conf
       - name: backend-users
         configMap:
           name: users.passwd

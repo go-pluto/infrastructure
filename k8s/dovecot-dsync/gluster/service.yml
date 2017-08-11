@@ -1,8 +1,0 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: glusterfs-cluster
-  namespace: dovecot
-spec:
-  ports:
-  - port: 1
