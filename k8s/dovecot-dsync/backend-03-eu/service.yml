@@ -7,9 +7,12 @@ metadata:
     app: backend-3-eu
 spec:
   type: LoadBalancer
-  ports:
-  - port: 993
-  - port: 12345
+  - name: imap
+    port: 993
+    targetPort: 993
+  - name: admin
+    port: 12345
+    targetPort: 12345
   selector:
     app: backend-3-eu
   clusterIP: 10.31.249.102

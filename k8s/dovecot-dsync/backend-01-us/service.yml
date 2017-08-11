@@ -1,5 +1,5 @@
 apiVersion: v1
-kind: Service
+kind: Service  
 metadata:
   name: backend-1-us
   namespace: dovecot-dsync
@@ -8,8 +8,12 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 993
-  - port: 12345
+  - name: imap
+    port: 993
+    targetPort: 993
+  - name: admin
+    port: 12345
+    targetPort: 12345
   selector:
     app: backend-1-us
   clusterIP: 10.15.245.100
