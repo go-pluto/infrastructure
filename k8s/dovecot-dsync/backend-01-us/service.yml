@@ -1,13 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: proxy
+  name: backend-1-us
   namespace: dovecot-dsync
   labels:
-    app: proxy
+    app: backend-1-us
 spec:
   type: LoadBalancer
   ports:
   - port: 993
+  - port: 12345
   selector:
-    app: proxy
+    app: backend-1-us
+  clusterIP: 10.15.245.100

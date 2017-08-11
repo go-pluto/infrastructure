@@ -39,8 +39,8 @@ data:
       args = uid=vmail gid=vmail home=/data/maildir/%u
     }
 
-    mmap_disable = yes
-    mail_fsync = always
-    mail_nfs_storage = yes
-    mail_nfs_index = yes
+    # mmap_disable = yes
+    # mail_fsync = always
+    # mail_nfs_storage = yes
+    # mail_nfs_index = yes
 

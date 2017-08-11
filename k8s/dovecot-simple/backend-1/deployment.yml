@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: timjuni/dovecot
+        image: gopluto/dovecot
         ports:
         - containerPort: 993
         resources:
@@ -28,7 +28,8 @@ spec:
           mountPath: /users
       volumes:
       - name: maildir
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: backend1-data
       - name: backend-config
         configMap:
           name: backend.conf
