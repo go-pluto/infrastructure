@@ -32,7 +32,7 @@ spec:
       volumes:
       - name: benchmark-config
         configMap:
-          name: dovecot-benchmark.conf
+          name: simple-dovecot-benchmark.conf
       - name: benchmark-users
         configMap:
           name: dovecot-users.passwd

@@ -1,7 +1,77 @@
-.PHONY: benchmark-dovecot
-benchmark-dovecot:
-	kubectl --namespace benchmark delete job dovecot-benchmark
-	kubectl apply -f k8s/benchmark/jobs/dovecot-benchmark.yml
+.PHONY: dovecot-dsync-stop
+dovecot-dsync-stop:
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=0 -f k8s/dovecot-dsync/backend-01-eu/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=0 -f k8s/dovecot-dsync/backend-02-eu/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=0 -f k8s/dovecot-dsync/backend-03-eu/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=0 -f k8s/dovecot-dsync/proxy/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-01-eu/pvc.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-02-eu/pvc.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-03-eu/pvc.yml
+	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" scale --replicas=0 -f k8s/dovecot-dsync/backend-01-us/deployment.yml
+	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" scale --replicas=0 -f k8s/dovecot-dsync/backend-02-us/deployment.yml
+	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" scale --replicas=0 -f k8s/dovecot-dsync/backend-03-us/deployment.yml
+	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" scale --replicas=0 -f k8s/dovecot-dsync/proxy/deployment.yml
+	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-01-us/pvc.yml
+	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-02-us/pvc.yml
+	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-03-us/pvc.yml
+
+.PHONY: dovecot-dsync-start
+dovecot-dsync-start:
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-dsync/backend-01-eu/pvc.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-dsync/backend-02-eu/pvc.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-dsync/backend-03-eu/pvc.yml
+	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/dovecot-dsync/backend-01-us/pvc.yml
+	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/dovecot-dsync/backend-02-us/pvc.yml
+	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/dovecot-dsync/backend-03-us/pvc.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/dovecot-dsync/backend-01-eu/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/dovecot-dsync/backend-02-eu/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/dovecot-dsync/backend-03-eu/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/dovecot-dsync/proxy/deployment.yml
+	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" scale --replicas=1 -f k8s/dovecot-dsync/backend-01-us/deployment.yml
+	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" scale --replicas=1 -f k8s/dovecot-dsync/backend-02-us/deployment.yml
+	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" scale --replicas=1 -f k8s/dovecot-dsync/backend-03-us/deployment.yml
+	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" scale --replicas=1 -f k8s/dovecot-dsync/proxy/deployment.yml
+
+.PHONY: dovecot-simple-stop
+dovecot-simple-stop:
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=0 -f k8s/dovecot-simple/backend-1/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=0 -f k8s/dovecot-simple/backend-2/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=0 -f k8s/dovecot-simple/backend-3/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=0 -f k8s/dovecot-simple/proxy/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-simple/backend-1/pvc.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-simple/backend-2/pvc.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-simple/backend-3/pvc.yml
+
+.PHONY: dovecot-simple-start
+dovecot-simple-start:
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-simple/backend-1/pvc.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-simple/backend-2/pvc.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-simple/backend-3/pvc.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/dovecot-simple/backend-1/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/dovecot-simple/backend-2/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/dovecot-simple/backend-3/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/dovecot-simple/proxy/deployment.yml
+
+.PHONY: benchmark-simple-dovecot
+benchmark-simple-dovecot:
+	kubectl apply -f k8s/benchmark/dovecot-users.yml
+	kubectl delete --ignore-not-found=true -f k8s/benchmark/dovecot-simple/job.yml
+	kubectl apply -f k8s/benchmark/dovecot-simple/config.yml
+	kubectl apply -f k8s/benchmark/dovecot-simple/job.yml
+
+.PHONY: benchmark-dsync-dovecot-eu
+benchmark-dsync-dovecot-eu:
+	kubectl apply -f k8s/benchmark/dovecot-users.yml
+	kubectl delete --ignore-not-found=true -f k8s/benchmark/dovecot-dsync-eu/job.yml
+	kubectl apply -f k8s/benchmark/dovecot-dsync-eu/config.yml
+	kubectl apply -f k8s/benchmark/dovecot-dsync-eu/job.yml
+
+.PHONY: benchmark-dsync-dovecot-us
+benchmark-dsync-dovecot-us:
+	kubectl apply -f k8s/benchmark/dovecot-users.yml
+	kubectl delete --ignore-not-found=true -f k8s/benchmark/dovecot-dsync-us/job.yml
+	kubectl apply -f k8s/benchmark/dovecot-dsync-us/config.yml
+	kubectl apply -f k8s/benchmark/dovecot-dsync-us/job.yml
 
 .PHONY: benchmark-pluto
 benchmark-pluto:

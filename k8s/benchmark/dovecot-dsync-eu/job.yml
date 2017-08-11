@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: dovecot-benchmark
+  namespace: benchmark
+spec:
+  template:
+    metadata:
+      name: dovecot-benchmark
+      labels:
+        app: benchmark
+    spec:
+      containers:
+      - name: benchmark
+        image: gopluto/benchmark
+        env:
+        - name: GOOGLE_CLOUD_PROJECT
+          value: pluto-167312
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /certs/accounts/service-account.json
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+        - name: benchmark-config
+          mountPath: /config
+        - name: benchmark-users
+          mountPath: /users
+        - name: benchmark-serviceaccount
+          mountPath: /certs/accounts
+      volumes:
+      - name: benchmark-config
+        configMap:
+          name: dsync-dovecot-eu-benchmark.conf
+      - name: benchmark-users
+        configMap:
+          name: dovecot-users.passwd
+      - name: benchmark-serviceaccount
+        secret:
+          secretName: service-account.json
+      restartPolicy: Never

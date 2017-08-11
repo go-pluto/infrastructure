@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: dovecot-benchmark.conf
+  name: dsync-dovecot-us-benchmark.conf
   namespace: benchmark
 data:
   config.toml: |-

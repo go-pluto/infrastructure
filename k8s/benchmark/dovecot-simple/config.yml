@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: simple-dovecot-benchmark.conf
+  namespace: benchmark
+data:
+  config.toml: |-
+    # This is an example config file
+
+    [server]
+    addr = "proxy.dovecot-simple.federation.svc.europe-west1.federation.go-pluto.de:993"
+    TLS = true # unused
+
+    [settings]
+    threads = 90
+    sessions = 3000
+    throttle = 50 # unused
+    seed = 123432432751135809
+
+    [session]
+    minlength = 15
+    maxlength = 30
