@@ -7,6 +7,7 @@ metadata:
     app: backend-3-eu
 spec:
   type: LoadBalancer
+  ports:
   - name: imap
     port: 993
     targetPort: 993
