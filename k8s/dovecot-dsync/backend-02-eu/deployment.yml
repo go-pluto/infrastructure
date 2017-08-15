@@ -29,6 +29,21 @@ spec:
           mountPath: /config
         - name: backend-users
           mountPath: /users
+      - name: maildir-exporter
+        image: gopluto/maildir_exporter
+        imagePullPolicy: Always
+        command:
+          - '/bin/maildir_exporter'
+          - '-logLevel'
+          - 'debug'
+          - '-maildirRootPath'
+          - '/data/maildirs'
+        ports:
+        - name: metrics
+          containerPort: 9275
+        volumeMounts:
+        - name: maildir
+          mountPath: /data/maildir
       volumes:
       - name: maildir
         persistentVolumeClaim:
