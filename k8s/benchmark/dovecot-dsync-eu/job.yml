@@ -13,6 +13,14 @@ spec:
       containers:
       - name: benchmark
         image: gopluto/benchmark
+        command:
+        - '/bin/benchmark'
+        - '-config'
+        - '/config/config.toml'
+        - '-userdb'
+        - '/users/passwd'
+        - '-logtostderr=true'
+        - '-v=0'
         env:
         - name: GOOGLE_CLOUD_PROJECT
           value: pluto-167312

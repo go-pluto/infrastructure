@@ -52,6 +52,22 @@ dovecot-simple-start:
 	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/dovecot-simple/backend-3/deployment.yml
 	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/dovecot-simple/proxy/deployment.yml
 
+.PHONY: pluto-simple-stop
+pluto-simple-stop:
+	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-1/pvc.yml
+	kubectl delete --ignore-not-found=true -f k8s/pluto/storage/pvc.yml
+	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-1/deployment.yml
+	kubectl delete --ignore-not-found=true -f k8s/pluto/storage/deployment.yml
+	kubectl delete --ignore-not-found=true -f k8s/pluto/distributor/deployment.yml
+
+.PHONY: pluto-simple-start
+pluto-simple-start:
+	kubectl apply -f k8s/pluto/worker-1/pvc.yml
+	kubectl apply -f k8s/pluto/storage/pvc.yml
+	kubectl apply -f k8s/pluto/distributor/
+	kubectl apply -f k8s/pluto/worker-1/
+	kubectl apply -f k8s/pluto/storage/
+
 .PHONY: benchmark-simple-dovecot
 benchmark-simple-dovecot:
 	kubectl apply -f k8s/benchmark/dovecot-users.yml
@@ -73,10 +89,12 @@ benchmark-dsync-dovecot-us:
 	kubectl apply -f k8s/benchmark/dovecot-dsync-us/config.yml
 	kubectl apply -f k8s/benchmark/dovecot-dsync-us/job.yml
 
-.PHONY: benchmark-pluto
-benchmark-pluto:
-	kubectl --namespace benchmark delete job pluto-benchmark
-	kubectl apply -f k8s/benchmark/jobs/pluto-benchmark.yml
+.PHONY: benchmark-simple-pluto
+benchmark-simple-pluto:
+	kubectl apply -f k8s/benchmark/pluto-users.yml
+	kubectl delete --ignore-not-found=true -f k8s/benchmark/pluto-simple/pluto-job.yml
+	kubectl apply -f k8s/benchmark/pluto-simple/pluto-config.yml
+	kubectl apply -f k8s/benchmark/pluto-simple/pluto-job.yml
 
 .PHONY: dovecot-forward
 dovecot-forward:
@@ -94,23 +112,18 @@ grafana-forward:
 pluto-distributor-forward:
 	kubectl --namespace pluto port-forward `kubectl --namespace pluto get pods | grep distributor | cut -d ' ' -f1` 1993
 
-.PHONY: pluto-recreate
-pluto-recreate:
-	kubectl --namespace pluto delete deployment distributor
-	kubectl --namespace pluto delete deployment worker-1
-	kubectl --namespace pluto delete deployment storage
-	kubectl apply -f k8s/pluto/distributor/
-	kubectl apply -f k8s/pluto/worker-1/
-	kubectl apply -f k8s/pluto/storage/
+.PHONY: pluto-simple-distributor-forward
+pluto-simple-distributor-forward:
+	kubectl --namespace pluto-simple port-forward `kubectl --namespace pluto-simple get pods | grep distributor | cut -d ' ' -f1` 1993
 
-.PHONY: pluto-secrets
-pluto-secrets:
+.PHONY: pluto-simple-secrets
+pluto-simple-secrets:
 	mkdir -p k8s/pluto/secrets/
-	for name in internal-distributor-cert internal-storage-cert internal-worker-1-cert public-distributor-cert root-cert; do \
+	for name in internal-distributor internal-storage internal-worker-1 public-distributor root; do \
 		gopass show -f pluto/gke/pluto/$$name-cert.pem > k8s/pluto/secrets/$$name-cert.pem; \
 		gopass show -f pluto/gke/pluto/$$name-key.pem > k8s/pluto/secrets/$$name-key.pem; \
-		kubectl --namespace pluto create secret generic $$name-cert.pem --from-file k8s/pluto/secrets/$$name-cert.pem; \
-		kubectl --namespace pluto create secret generic $$name-key.pem --from-file k8s/pluto/secrets/$$name-key.pem; \
+		kubectl --namespace pluto-simple create secret generic $$name-cert.pem --from-file k8s/pluto/secrets/$$name-cert.pem; \
+		kubectl --namespace pluto-simple create secret generic $$name-key.pem --from-file k8s/pluto/secrets/$$name-key.pem; \
 	done
 
 .PHONY: pluto-fed-secrets

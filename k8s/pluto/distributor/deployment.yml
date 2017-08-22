@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: distributor
-  namespace: pluto
+  namespace: pluto-simple
 spec:
   replicas: 1
   template:
@@ -15,10 +15,12 @@ spec:
     spec:
       containers:
       - name: distributor
-        image: gopluto/pluto
+        image: gopluto/pluto:streamsync
         imagePullPolicy: Always
         command:
         - '/bin/pluto'
+        - '-loglevel'
+        - 'error'
         - '-config'
         - '/config/pluto.toml'
         - '-distributor'

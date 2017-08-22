@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: pluto.toml
-  namespace: pluto
+  namespace: pluto-simple
 data:
   pluto.toml: |-
     RootCertLoc = "/certs/root/root-cert.pem"
@@ -41,7 +41,7 @@ data:
         CertLoc = "/certs/internal/cert/internal-worker-1-cert.pem"
         KeyLoc = "/certs/internal/key/internal-worker-1-key.pem"
         UserStart = 1
-        UserEnd = 10
+        UserEnd = 120
         MaildirRoot = "/data/maildirs"
         CRDTLayerRoot = "/data/crdt-layers"
 

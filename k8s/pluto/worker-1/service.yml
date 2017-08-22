@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: worker-1
-  namespace: pluto
+  namespace: pluto-simple
   labels:
     app: worker-1
 spec:

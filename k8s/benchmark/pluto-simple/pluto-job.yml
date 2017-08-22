@@ -1,12 +1,12 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: dovecot-benchmark
+  name: pluto-simple-benchmark
   namespace: benchmark
 spec:
   template:
     metadata:
-      name: dovecot-benchmark
+      name: pluto-simple-benchmark
       labels:
         app: benchmark
     spec:
@@ -40,10 +40,10 @@ spec:
       volumes:
       - name: benchmark-config
         configMap:
-          name: simple-dovecot-benchmark.conf
+          name: pluto-simple-benchmark.conf
       - name: benchmark-users
         configMap:
-          name: dovecot-users.passwd
+          name: pluto-simple-users.passwd
       - name: benchmark-serviceaccount
         secret:
           secretName: service-account.json
