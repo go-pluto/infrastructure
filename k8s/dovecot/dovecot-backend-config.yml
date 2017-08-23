@@ -41,6 +41,5 @@ data:
 
     mmap_disable = yes
     mail_fsync = always
-    mail_nfs_storage = yes
-    mail_nfs_index = yes
-
+    mail_nfs_storage = no
+    mail_nfs_index = no

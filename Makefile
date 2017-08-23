@@ -52,6 +52,21 @@ dovecot-simple-start:
 	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/dovecot-simple/backend-3/deployment.yml
 	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/dovecot-simple/proxy/deployment.yml
 
+.PHONY: dovecot-stop
+dovecot-stop:
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=0 -f k8s/dovecot/backend-1/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=0 -f k8s/dovecot/backend-2/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=0 -f k8s/dovecot/backend-3/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=0 -f k8s/dovecot/proxy/deployment.yml
+
+.PHONY: dovecot-start
+dovecot-start:
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/dovecot/backend-1/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/dovecot/backend-2/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/dovecot/backend-3/deployment.yml
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/dovecot/proxy/deployment.yml
+
+
 .PHONY: pluto-simple-stop
 pluto-simple-stop:
 	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-1/pvc.yml

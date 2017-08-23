@@ -6,9 +6,9 @@ metadata:
   labels:
     app: proxy
 spec:
-  # type: LoadBalancer
+  type: LoadBalancer
   ports:
   - port: 993
   selector:
     app: proxy
-  clusterIP: 10.43.242.1
+  clusterIP: 10.31.247.1

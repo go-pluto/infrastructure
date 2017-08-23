@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: storage
-        image: gopluto/pluto:streamsync
+        image: gopluto/pluto
         imagePullPolicy: Always
         command:
         - '/bin/pluto'

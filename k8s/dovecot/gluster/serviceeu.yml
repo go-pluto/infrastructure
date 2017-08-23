@@ -1,0 +1,8 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: glustereu-cluster
+  namespace: dovecot
+spec:
+  ports:
+  - port: 1
