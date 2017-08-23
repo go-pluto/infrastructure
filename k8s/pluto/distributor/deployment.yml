@@ -2,9 +2,26 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: distributor
-  namespace: pluto-simple
+  namespace: pluto
+  annotations:
+    federation.kubernetes.io/deployment-preferences: |
+        {
+            "rebalance": true,
+            "clusters": {
+                "europe-west1-b": {
+                    "minReplicas": 1,
+                    "maxReplicas": 1,
+                    "weight": 1
+                },
+                "us-east1-b": {
+                    "minReplicas": 1,
+                    "maxReplicas": 1,
+                    "weight": 1
+                }
+            }
+        }
 spec:
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
@@ -19,8 +36,6 @@ spec:
         imagePullPolicy: Always
         command:
         - '/bin/pluto'
-        - '-loglevel'
-        - 'error'
         - '-config'
         - '/config/pluto.toml'
         - '-distributor'
@@ -51,7 +66,7 @@ spec:
       volumes:
       - name: pluto-config
         configMap:
-          name: pluto.toml
+          name: eu-pluto.toml
       - name: pluto-users
         configMap:
           name: users.txt

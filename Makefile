@@ -69,19 +69,19 @@ dovecot-start:
 
 .PHONY: pluto-simple-stop
 pluto-simple-stop:
-	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-1/pvc.yml
-	kubectl delete --ignore-not-found=true -f k8s/pluto/storage/pvc.yml
-	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-1/deployment.yml
-	kubectl delete --ignore-not-found=true -f k8s/pluto/storage/deployment.yml
-	kubectl delete --ignore-not-found=true -f k8s/pluto/distributor/deployment.yml
+	kubectl delete --ignore-not-found=true -f k8s/pluto-simple/worker-1/pvc.yml
+	kubectl delete --ignore-not-found=true -f k8s/pluto-simple/storage/pvc.yml
+	kubectl delete --ignore-not-found=true -f k8s/pluto-simple/worker-1/deployment.yml
+	kubectl delete --ignore-not-found=true -f k8s/pluto-simple/storage/deployment.yml
+	kubectl delete --ignore-not-found=true -f k8s/pluto-simple/distributor/deployment.yml
 
 .PHONY: pluto-simple-start
 pluto-simple-start:
-	kubectl apply -f k8s/pluto/worker-1/pvc.yml
-	kubectl apply -f k8s/pluto/storage/pvc.yml
-	kubectl apply -f k8s/pluto/distributor/
-	kubectl apply -f k8s/pluto/worker-1/
-	kubectl apply -f k8s/pluto/storage/
+	kubectl apply -f k8s/pluto-simple/worker-1/pvc.yml
+	kubectl apply -f k8s/pluto-simple/storage/pvc.yml
+	kubectl apply -f k8s/pluto-simple/distributor/
+	kubectl apply -f k8s/pluto-simple/worker-1/
+	kubectl apply -f k8s/pluto-simple/storage/
 
 .PHONY: benchmark-simple-dovecot
 benchmark-simple-dovecot:
@@ -133,22 +133,22 @@ pluto-simple-distributor-forward:
 
 .PHONY: pluto-simple-secrets
 pluto-simple-secrets:
-	mkdir -p k8s/pluto/secrets/
+	mkdir -p k8s/pluto-simple/secrets/
 	for name in internal-distributor internal-storage internal-worker-1 public-distributor root; do \
-		gopass show -f pluto/gke/pluto/$$name-cert.pem > k8s/pluto/secrets/$$name-cert.pem; \
-		gopass show -f pluto/gke/pluto/$$name-key.pem > k8s/pluto/secrets/$$name-key.pem; \
-		kubectl --namespace pluto-simple create secret generic $$name-cert.pem --from-file k8s/pluto/secrets/$$name-cert.pem; \
-		kubectl --namespace pluto-simple create secret generic $$name-key.pem --from-file k8s/pluto/secrets/$$name-key.pem; \
+		gopass show -f pluto/gke/pluto/$$name-cert.pem > k8s/pluto-simple/secrets/$$name-cert.pem; \
+		gopass show -f pluto/gke/pluto/$$name-key.pem > k8s/pluto-simple/secrets/$$name-key.pem; \
+		kubectl --namespace pluto-simple create secret generic $$name-cert.pem --from-file k8s/pluto-simple/secrets/$$name-cert.pem; \
+		kubectl --namespace pluto-simple create secret generic $$name-key.pem --from-file k8s/pluto-simple/secrets/$$name-key.pem; \
 	done
 
 .PHONY: pluto-fed-secrets
 pluto-fed-secrets:
-	mkdir -p k8s/pluto-federation/secrets/
+	mkdir -p k8s/pluto/secrets/
 	for name in internal-distributor internal-eu-worker-1 internal-eu-worker-2 internal-eu-worker-3 internal-storage internal-us-worker-1 internal-us-worker-2 internal-us-worker-3 public-distributor root; do \
-		gopass show -f pluto/gke/pluto-federation/$$name-cert.pem > k8s/pluto-federation/secrets/$$name-cert.pem; \
-		gopass show -f pluto/gke/pluto-federation/$$name-key.pem > k8s/pluto-federation/secrets/$$name-key.pem; \
-		kubectl --namespace pluto create secret generic $$name-cert.pem --from-file k8s/pluto-federation/secrets/$$name-cert.pem; \
-		kubectl --namespace pluto create secret generic $$name-key.pem --from-file k8s/pluto-federation/secrets/$$name-key.pem; \
+		gopass show -f pluto/gke/pluto-federation/$$name-cert.pem > k8s/pluto/secrets/$$name-cert.pem; \
+		gopass show -f pluto/gke/pluto-federation/$$name-key.pem > k8s/pluto/secrets/$$name-key.pem; \
+		kubectl --namespace pluto create secret generic $$name-cert.pem --from-file k8s/pluto/secrets/$$name-cert.pem; \
+		kubectl --namespace pluto create secret generic $$name-key.pem --from-file k8s/pluto/secrets/$$name-key.pem; \
 	done
 
 .PHONY: pluto-fed-secrets-rm

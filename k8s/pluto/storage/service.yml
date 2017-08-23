@@ -2,11 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: storage
-  namespace: pluto-simple
+  namespace: pluto
   labels:
     app: storage
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: storage
   ports:

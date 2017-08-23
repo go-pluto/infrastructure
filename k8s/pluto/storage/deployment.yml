@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: storage
-  namespace: pluto-simple
+  namespace: pluto
 spec:
   replicas: 1
   template:
@@ -19,8 +19,6 @@ spec:
         imagePullPolicy: Always
         command:
         - '/bin/pluto'
-        - '-loglevel'
-        - 'error'
         - '-config'
         - '/config/pluto.toml'
         - '-storage'
@@ -37,7 +35,7 @@ spec:
             memory: 100Mi
         volumeMounts:
         - name: maildirs
-          mountPath: /data
+          mountPath: /data/maildirs
         - name: pluto-config
           mountPath: /config
         - name: pluto-users
@@ -62,14 +60,13 @@ spec:
           containerPort: 9275
         volumeMounts:
         - name: maildirs
-          mountPath: /data
+          mountPath: /data/maildirs
       volumes:
       - name: maildirs
-        persistentVolumeClaim:
-          claimName: storage-data
+        emptyDir: {}
       - name: pluto-config
         configMap:
-          name: pluto.toml
+          name: eu-pluto.toml
       - name: pluto-users
         configMap:
           name: users.txt
