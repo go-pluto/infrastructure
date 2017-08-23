@@ -19,7 +19,6 @@ data:
     ssl_key = </etc/dovecot/private/dovecot.pem
     disable_plaintext_auth = no
 
-
     # Authentication configuration:
     auth default {
       mechanisms = plain
@@ -36,5 +35,3 @@ data:
         default_fields = proxy=y nopassword=y ssl=any-cert
       }
     }
-
-

@@ -23,7 +23,7 @@ spec:
             cpu: 100m
             memory: 100Mi
         volumeMounts:
-        - name: maildir
+        - name: data
           mountPath: /data/maildir
         - name: backend-config
           mountPath: /config
@@ -35,17 +35,17 @@ spec:
         command:
           - '/bin/maildir_exporter'
           - '-logLevel'
-          - 'debug'
+          - 'error'
           - '-maildirRootPath'
           - '/data/maildirs'
         ports:
         - name: metrics
           containerPort: 9275
         volumeMounts:
-        - name: maildir
+        - name: data
           mountPath: /data/maildir
       volumes:
-      - name: maildir
+      - name: data
         persistentVolumeClaim:
           claimName: backend1-data
       - name: backend-config
