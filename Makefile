@@ -83,8 +83,8 @@ pluto-simple-start:
 	kubectl apply -f k8s/pluto-simple/worker-1/
 	kubectl apply -f k8s/pluto-simple/storage/
 
-.PHONY: benchmark-simple-dovecot
-benchmark-simple-dovecot:
+.PHONY: benchmark-dovecot-simple
+benchmark-dovecot-simple:
 	kubectl apply -f k8s/benchmark/dovecot-users.yml
 	kubectl delete --ignore-not-found=true -f k8s/benchmark/dovecot-simple/job.yml
 	kubectl apply -f k8s/benchmark/dovecot-simple/config.yml
@@ -107,9 +107,9 @@ benchmark-dsync-dovecot-us:
 .PHONY: benchmark-pluto-simple
 benchmark-pluto-simple:
 	kubectl apply -f k8s/benchmark/pluto-users.yml
-	kubectl delete --ignore-not-found=true -f k8s/benchmark/pluto-simple/pluto-job.yml
-	kubectl apply -f k8s/benchmark/pluto-simple/pluto-config.yml
-	kubectl apply -f k8s/benchmark/pluto-simple/pluto-job.yml
+	kubectl delete --ignore-not-found=true -f k8s/benchmark/pluto-simple/job.yml
+	kubectl apply -f k8s/benchmark/pluto-simple/config.yml
+	kubectl apply -f k8s/benchmark/pluto-simple/job.yml
 
 .PHONY: dovecot-forward
 dovecot-forward:
