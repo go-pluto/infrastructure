@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: pluto-simple-users.passwd
+  name: pluto-users.passwd
   namespace: benchmark
 data:
   passwd: |-

@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: timjuni/dovecot
+        image: gopluto/dovecot
         ports:
         - containerPort: 993
         resources:

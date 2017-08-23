@@ -43,7 +43,7 @@ spec:
           name: pluto-simple-benchmark.conf
       - name: benchmark-users
         configMap:
-          name: pluto-simple-users.passwd
+          name: pluto-users.passwd
       - name: benchmark-serviceaccount
         secret:
           secretName: service-account.json

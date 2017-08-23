@@ -5,8 +5,6 @@ metadata:
   namespace: benchmark
 data:
   config.toml: |-
-    # This is an example config file
-
     [server]
     addr = "104.155.49.100:993"
     TLS = true # unused
