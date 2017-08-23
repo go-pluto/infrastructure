@@ -104,8 +104,8 @@ benchmark-dsync-dovecot-us:
 	kubectl apply -f k8s/benchmark/dovecot-dsync-us/config.yml
 	kubectl apply -f k8s/benchmark/dovecot-dsync-us/job.yml
 
-.PHONY: benchmark-simple-pluto
-benchmark-simple-pluto:
+.PHONY: benchmark-pluto-simple
+benchmark-pluto-simple:
 	kubectl apply -f k8s/benchmark/pluto-users.yml
 	kubectl delete --ignore-not-found=true -f k8s/benchmark/pluto-simple/pluto-job.yml
 	kubectl apply -f k8s/benchmark/pluto-simple/pluto-config.yml

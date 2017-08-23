@@ -37,7 +37,7 @@ spec:
             cpu: 100m
             memory: 100Mi
         volumeMounts:
-        - name: maildirs
+        - name: data
           mountPath: /data
         - name: pluto-config
           mountPath: /config
@@ -55,17 +55,17 @@ spec:
         command:
         - '/bin/maildir_exporter'
         - '-logLevel'
-        - 'debug'
+        - 'error'
         - '-maildirRootPath'
         - '/data/maildirs'
         ports:
         - name: metrics
           containerPort: 9275
         volumeMounts:
-        - name: maildirs
+        - name: data
           mountPath: /data
       volumes:
-      - name: maildirs
+      - name: data
         persistentVolumeClaim:
           claimName: worker1-data
       - name: pluto-config
