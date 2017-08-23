@@ -43,4 +43,3 @@ data:
     # mail_fsync = always
     # mail_nfs_storage = yes
     # mail_nfs_index = yes
-

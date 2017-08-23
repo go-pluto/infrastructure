@@ -20,14 +20,14 @@ spec:
             cpu: 100m
             memory: 100Mi
         volumeMounts:
-        - name: maildir
+        - name: data
           mountPath: /data/maildir
         - name: backend-config
           mountPath: /config
         - name: backend-users
           mountPath: /users
       volumes:
-      - name: maildir
+      - name: data
         persistentVolumeClaim:
           claimName: backend3-data
       - name: backend-config
