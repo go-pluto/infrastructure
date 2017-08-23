@@ -36,6 +36,8 @@ spec:
         imagePullPolicy: Always
         command:
         - '/bin/pluto'
+        - '-loglevel'
+        - 'error'
         - '-config'
         - '/config/pluto.toml'
         - '-worker'

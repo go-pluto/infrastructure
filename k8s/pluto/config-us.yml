@@ -41,7 +41,7 @@ data:
         CertLoc = "/certs/internal/cert/internal-us-worker-1-cert.pem"
         KeyLoc = "/certs/internal/key/internal-us-worker-1-key.pem"
         UserStart = 1
-        UserEnd = 3
+        UserEnd = 40
         MaildirRoot = "/data/maildirs"
         CRDTLayerRoot = "/data/crdt-layers"
 
@@ -58,8 +58,8 @@ data:
         PrometheusAddr = "0.0.0.0:9999"
         CertLoc = "/certs/internal/cert/internal-us-worker-2-cert.pem"
         KeyLoc = "/certs/internal/key/internal-us-worker-2-key.pem"
-        UserStart = 4
-        UserEnd = 6
+        UserStart = 41
+        UserEnd = 80
         MaildirRoot = "/data/maildirs"
         CRDTLayerRoot = "/data/crdt-layers"
 
@@ -76,8 +76,8 @@ data:
         PrometheusAddr = "0.0.0.0:9999"
         CertLoc = "/certs/internal/cert/internal-us-worker-3-cert.pem"
         KeyLoc = "/certs/internal/key/internal-us-worker-3-key.pem"
-        UserStart = 7
-        UserEnd = 9
+        UserStart = 81
+        UserEnd = 120
         MaildirRoot = "/data/maildirs"
         CRDTLayerRoot = "/data/crdt-layers"
 

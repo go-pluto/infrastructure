@@ -36,6 +36,8 @@ spec:
         imagePullPolicy: Always
         command:
         - '/bin/pluto'
+        - '-loglevel'
+        - 'error'
         - '-config'
         - '/config/pluto.toml'
         - '-worker'
@@ -70,7 +72,7 @@ spec:
         command:
         - '/bin/maildir_exporter'
         - '-logLevel'
-        - 'debug'
+        - 'error'
         - '-maildirRootPath'
         - '/data/maildirs'
         ports:
