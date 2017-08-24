@@ -8,12 +8,12 @@ data:
     # This is an example config file
 
     [server]
-    addr = "proxy.dovecot.svc.cluster.local:993"
+    addr = "proxy.dovecot-simple.svc.cluster.local:993"
     TLS = true # unused
 
     [settings]
-    threads = 20
-    sessions = 600
+    threads = 90
+    sessions = 6000
     throttle = 50 # unused
     seed = 1
 

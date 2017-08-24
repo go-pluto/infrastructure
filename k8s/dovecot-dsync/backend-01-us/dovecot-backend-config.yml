@@ -14,8 +14,10 @@ data:
 
     # Disable SSL for now.
     ssl = yes
-    ssl_cert = </etc/dovecot/dovecot.pem
-    ssl_key = </etc/dovecot/private/dovecot.pem
+    ssl_cert = </certs/internal/cert/us.crt
+    ssl_key = </certs/internal/key/us.key
+    ssl_client_ca_file = /certs/root/dovecotca.pem
+    ssl_verify_client_cert = no
     disable_plaintext_auth = no
 
     # We're using Maildir format
@@ -72,6 +74,7 @@ data:
       user = vmail
       inet_listener {
         port = 12345
+        ssl = yes
       }
     }
 
@@ -82,7 +85,7 @@ data:
     doveadm_password = secret
 
     plugin {
-      mail_replica = tcp:35.195.249.221:12345 # use doveadm_port
+      mail_replica = tcps:backend-1-eu.dovecot-dsync.federation.svc.federation.go-pluto.de:12345 # use doveadm_port
       #mail_replica = tcp:anotherhost.example.com:12345 # use port 12345 explicitly
     }
 

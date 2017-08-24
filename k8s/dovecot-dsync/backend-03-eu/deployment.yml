@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: backend-3-eu
-        image: gopluto/dovecot
+        image: gopluto/dovecot:16.04
         ports:
         - name: imap
           containerPort: 993
@@ -29,6 +29,12 @@ spec:
           mountPath: /config
         - name: backend-users
           mountPath: /users
+        - name: root-cert
+          mountPath: /certs/root/
+        - name: eu-cert
+          mountPath: /certs/internal/cert/
+        - name: eu-key
+          mountPath: /certs/internal/key/
       - name: maildir-exporter
         image: gopluto/maildir_exporter
         imagePullPolicy: Always
@@ -54,3 +60,12 @@ spec:
       - name: backend-users
         configMap:
           name: users.passwd
+      - name: root-cert
+        secret:
+          secretName: dovecotca.pem
+      - name: eu-cert
+        secret:
+          secretName: eu.crt
+      - name: eu-key
+        secret:
+          secretName: eu.key          
