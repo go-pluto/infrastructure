@@ -1,0 +1,14 @@
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: gluster-cluster
+  namespace: dovecot
+subsets:
+- addresses:
+  - ip: 10.132.0.3
+  ports:
+  - port: 1
+- addresses:
+  - ip: 10.142.0.5
+  ports:
+  - port: 1

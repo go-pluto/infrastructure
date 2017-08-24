@@ -29,8 +29,8 @@ spec:
       volumes:
       - name: glusterfsvol
         glusterfs:
-          endpoints: glustereu-cluster
-          path: volume2
+          endpoints: gluster-cluster
+          path: volume1
           readOnly: false
       - name: backend-config
         configMap:
