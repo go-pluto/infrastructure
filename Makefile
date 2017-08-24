@@ -169,7 +169,7 @@ prometheus-forward:
 
 .PHONY: grafana-forward
 grafana-forward:
-	kubectl --namespace monitoring port-forward `kubectl --namespace monitoring get pods | grep grafana | cut -d ' ' -f1` 3000
+	kubectl --context europe-west3-b --namespace monitoring port-forward `kubectl --context europe-west3-b --namespace monitoring get pods | grep grafana | cut -d ' ' -f1` 3000
 
 
 ### PLUTO ###
