@@ -13,7 +13,7 @@ spec:
         app: grafana
     spec:
       containers:
-      - image: grafana/grafana:4.3.2
+      - image: grafana/grafana:4.4.3
         name: grafana
         imagePullPolicy: IfNotPresent
         resources:

@@ -5,15 +5,13 @@ metadata:
     prometheus.io/scrape: 'true'
     prometheus.io/probe: '/metrics'
   labels:
-    name: prometheus
-  name: prometheus
+    name: prometheus-global
+  name: prometheus-global
   namespace: monitoring
 spec:
   selector:
-    app: prometheus
-  type: LoadBalancer
+    app: prometheus-global
   ports:
-  - name: prometheus
+  - name: prometheus-global
     protocol: TCP
     port: 9090
-    targetPort: 9090
