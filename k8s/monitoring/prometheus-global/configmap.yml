@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-global.yml
+  namespace: monitoring
+data:
+  prometheus.yml: |
+    # https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml
+    global:
+      scrape_interval: 15s
+    scrape_configs:
+
+    - job_name: 'prometheus'
+      scrape_interval: 15s
+      static_configs:
+      - targets:
+        - localhost:9090
+        labels:
+          app: 'prometheus'
+
+    - job_name: 'federate'
+      scrape_interval: 15s
+
+      honor_labels: true
+      metrics_path: '/federate'
+
+      params:
+        'match[]':
+          - '{__name__="go_goroutines"}'
+          - '{__name__=~"maildir.*"}'
+          - '{__name__=~"node_(cpu|boot|memory|filesystem).*"}'
+          - '{__name__=~"pluto_.*"}'
+
+      static_configs:
+        - targets:
+          - 'prometheus.monitoring.federation.svc.europe-west1.federation.go-pluto.de:9090'
+          - 'prometheus.monitoring.federation.svc.europe-west2.federation.go-pluto.de:9090'
+          - 'prometheus.monitoring.federation.svc.us-east1.federation.go-pluto.de:9090'
