@@ -1,0 +1,13 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: storage-data
+  namespace: pluto
+  annotations:
+    volume.beta.kubernetes.io/storage-class: europe-west2-b-ssd
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
