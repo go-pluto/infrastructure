@@ -13,6 +13,11 @@ metadata:
                     "maxReplicas": 1,
                     "weight": 1
                 },
+                "europe-west2-b": {
+                    "minReplicas": 1,
+                    "maxReplicas": 1,
+                    "weight": 1
+                },
                 "us-east1-b": {
                     "minReplicas": 1,
                     "maxReplicas": 1,
@@ -21,7 +26,7 @@ metadata:
             }
         }
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: prometheus
@@ -35,9 +40,9 @@ spec:
       - name: prometheus
         image: quay.io/prometheus/prometheus:v1.7.1
         args:
-        #  - '-storage.local.retention=6h'
-        #  - '-storage.local.memory-chunks=500000'
-        #  - '-config.file=/etc/prometheus/prometheus.yml'
+         - '-storage.local.retention=6h'
+         - '-storage.local.memory-chunks=500000'
+         - '-config.file=/etc/prometheus/prometheus.yml'
         ports:
         - name: web
           containerPort: 9090
