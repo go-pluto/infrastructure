@@ -191,21 +191,27 @@ pluto-secrets:
 		kubectl --namespace pluto create secret generic $$name-key.pem --from-file k8s/pluto/secrets/$$name-key.pem; \
 	done
 
-# .PHONY: pluto-stop
-# pluto-stop:
-# 	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=0 -f k8s/pluto/distributor/deployment.yml
-# 	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=0 -f k8s/pluto/storage/deployment.yml
-# 	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=0 -f k8s/pluto/worker-1/deployment-eu.yml
-# 	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=0 -f k8s/pluto/worker-2/deployment-eu.yml
-# 	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=0 -f k8s/pluto/worker-3/deployment-eu.yml
+.PHONY: pluto-stop
+pluto-stop:
+	kubectl delete -f k8s/pluto/distributor/deployment.yml
+	kubectl delete -f k8s/pluto/storage/deployment.yml
+	kubectl delete -f k8s/pluto/worker-1/deployment-eu.yml
+	kubectl delete -f k8s/pluto/worker-1/deployment-us.yml
+	kubectl delete -f k8s/pluto/worker-2/deployment-eu.yml
+	kubectl delete -f k8s/pluto/worker-2/deployment-us.yml
+	kubectl delete -f k8s/pluto/worker-3/deployment-eu.yml
+	kubectl delete -f k8s/pluto/worker-3/deployment-us.yml
 
-# .PHONY: pluto-start
-# pluto-start:
-# 	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/pluto/distributor/deployment.yml
-# 	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/pluto/storage/deployment.yml
-# 	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/pluto/worker-1/deployment-eu.yml
-# 	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/pluto/worker-2/deployment-eu.yml
-# 	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" scale --replicas=1 -f k8s/pluto/worker-3/deployment-eu.yml
+.PHONY: pluto-start
+pluto-start:
+	kubectl delete -f k8s/pluto/distributor/deployment.yml
+	kubectl delete -f k8s/pluto/storage/deployment.yml
+	kubectl delete -f k8s/pluto/worker-1/deployment-eu.yml
+	kubectl delete -f k8s/pluto/worker-1/deployment-us.yml
+	kubectl delete -f k8s/pluto/worker-2/deployment-eu.yml
+	kubectl delete -f k8s/pluto/worker-2/deployment-us.yml
+	kubectl delete -f k8s/pluto/worker-3/deployment-eu.yml
+	kubectl delete -f k8s/pluto/worker-3/deployment-us.yml
 
 .PHONY: pluto-distributor-forward
 pluto-distributor-forward:
