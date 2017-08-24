@@ -21,7 +21,9 @@ data:
     disable_plaintext_auth = no
 
     # We're using Maildir format
-    mail_location = maildir:~:INDEX=/data/index/%u
+    mail_location = maildir:~:INDEX=/data/index/%u:CONTROL=/data/control/%u
+
+    mail_log_max_lines_per_sec = 0
 
     # If you're using POP3, you'll need this:
     pop3_uidl_format = %g
