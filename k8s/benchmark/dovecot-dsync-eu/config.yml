@@ -6,12 +6,12 @@ metadata:
 data:
   config.toml: |-
     [server]
-    addr = "104.155.49.100:993"
+    addr = "proxy.dovecot-dsync.federation.svc.europe-west1.federation.go-pluto.de:993"
     TLS = true # unused
 
     [settings]
-    threads = 90
-    sessions = 5000
+    threads = 60
+    sessions = 1000
     throttle = 50 # unused
     seed = 1
 

@@ -6,7 +6,7 @@ metadata:
 data:
   config.toml: |-
     [server]
-    addr = "35.196.197.212:993"
+    addr = "proxy.dovecot-dsync.federation.svc.us-east1-b.us-east1.federation.go-pluto.de:993"
     TLS = true # unused
 
     [settings]

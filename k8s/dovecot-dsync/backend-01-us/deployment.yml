@@ -24,7 +24,7 @@ spec:
             memory: 100Mi
         volumeMounts:
         - name: data
-          mountPath: /data/maildir
+          mountPath: /data
         - name: backend-config
           mountPath: /config
         - name: backend-users
@@ -43,13 +43,13 @@ spec:
           - '-logLevel'
           - 'error'
           - '-maildirRootPath'
-          - '/data/maildirs'
+          - '/data/maildir'
         ports:
         - name: metrics
           containerPort: 9275
         volumeMounts:
         - name: data
-          mountPath: /data/maildir
+          mountPath: /data
       volumes:
       - name: data
         persistentVolumeClaim:
@@ -65,7 +65,7 @@ spec:
           secretName: dovecotca.pem
       - name: us-cert
         secret:
-          secretName: us.crt
+          secretName: us1.crt
       - name: us-key
         secret:
-          secretName: us.key
+          secretName: us1.key
