@@ -18,14 +18,14 @@ spec:
         resources:
           requests:
             cpu: 100m
-            memory: 100Mi
+            memory: 2048Mi
         volumeMounts:
         - name: glusterfsvol
           mountPath: /mnt/glusterfs
         - name: backend-config
           mountPath: /config
         - name: backend-users
-          mountPath: /users    
+          mountPath: /users
       volumes:
       - name: glusterfsvol
         glusterfs:
