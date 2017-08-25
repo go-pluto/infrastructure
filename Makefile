@@ -39,17 +39,17 @@ benchmark-pluto-simple:
 
 .PHONY: dovecot-stop
 dovecot-stop:
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot/backend-1/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot/backend-2/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot/backend-3/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot/proxy/deployment.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot/backend-1/deployment.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot/backend-2/deployment.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot/backend-3/deployment.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot/proxy/deployment.yml
 
 .PHONY: dovecot-start
 dovecot-start:
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot/backend-1/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot/backend-2/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot/backend-3/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot/proxy/deployment.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot/backend-1/deployment.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot/backend-2/deployment.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot/backend-3/deployment.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot/proxy/deployment.yml
 
 .PHONY: dovecot-forward
 dovecot-forward:
@@ -60,94 +60,94 @@ dovecot-forward:
 
 .PHONY: dovecot-dsync-stop
 dovecot-dsync-stop:
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-01-eu/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-02-eu/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-03-eu/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/proxy/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-01-eu/pvc.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-02-eu/pvc.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-03-eu/pvc.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-01-us/deployment.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-02-us/deployment.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-03-us/deployment.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/proxy/deployment.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-01-us/pvc.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-02-us/pvc.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-03-us/pvc.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-01-eu/deployment.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-02-eu/deployment.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-03-eu/deployment.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/proxy/deployment.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-01-eu/pvc.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-02-eu/pvc.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-03-eu/pvc.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-01-us/deployment.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-02-us/deployment.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-03-us/deployment.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/proxy/deployment.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-01-us/pvc.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-02-us/pvc.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/dovecot-dsync/backend-03-us/pvc.yml
 
 .PHONY: dovecot-dsync-start
 dovecot-dsync-start:
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-dsync/backend-01-eu/dovecot-backend-config.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-dsync/backend-02-eu/dovecot-backend-config.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-dsync/backend-03-eu/dovecot-backend-config.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-dsync/proxy-config.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-dsync/proxy-users-eu.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/dovecot-dsync/backend-01-us/dovecot-backend-config.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/dovecot-dsync/backend-02-us/dovecot-backend-config.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/dovecot-dsync/backend-03-us/dovecot-backend-config.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/dovecot-dsync/proxy-config.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/dovecot-dsync/proxy-users-us.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-dsync/backend-01-eu/pvc.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-dsync/backend-02-eu/pvc.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-dsync/backend-03-eu/pvc.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/dovecot-dsync/backend-01-us/pvc.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/dovecot-dsync/backend-02-us/pvc.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/dovecot-dsync/backend-03-us/pvc.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-dsync/backend-01-eu/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-dsync/backend-02-eu/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-dsync/backend-03-eu/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-dsync/proxy/deployment.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/dovecot-dsync/backend-01-us/deployment.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/dovecot-dsync/backend-02-us/deployment.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/dovecot-dsync/backend-03-us/deployment.yml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/dovecot-dsync/proxy/deployment.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-dsync/backend-01-eu/dovecot-backend-config.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-dsync/backend-02-eu/dovecot-backend-config.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-dsync/backend-03-eu/dovecot-backend-config.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-dsync/proxy-config.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-dsync/proxy-users-eu.yml
+	kubectl --context="us-east1-b" apply -f k8s/dovecot-dsync/backend-01-us/dovecot-backend-config.yml
+	kubectl --context="us-east1-b" apply -f k8s/dovecot-dsync/backend-02-us/dovecot-backend-config.yml
+	kubectl --context="us-east1-b" apply -f k8s/dovecot-dsync/backend-03-us/dovecot-backend-config.yml
+	kubectl --context="us-east1-b" apply -f k8s/dovecot-dsync/proxy-config.yml
+	kubectl --context="us-east1-b" apply -f k8s/dovecot-dsync/proxy-users-us.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-dsync/backend-01-eu/pvc.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-dsync/backend-02-eu/pvc.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-dsync/backend-03-eu/pvc.yml
+	kubectl --context="us-east1-b" apply -f k8s/dovecot-dsync/backend-01-us/pvc.yml
+	kubectl --context="us-east1-b" apply -f k8s/dovecot-dsync/backend-02-us/pvc.yml
+	kubectl --context="us-east1-b" apply -f k8s/dovecot-dsync/backend-03-us/pvc.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-dsync/backend-01-eu/deployment.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-dsync/backend-02-eu/deployment.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-dsync/backend-03-eu/deployment.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-dsync/proxy/deployment.yml
+	kubectl --context="us-east1-b" apply -f k8s/dovecot-dsync/backend-01-us/deployment.yml
+	kubectl --context="us-east1-b" apply -f k8s/dovecot-dsync/backend-02-us/deployment.yml
+	kubectl --context="us-east1-b" apply -f k8s/dovecot-dsync/backend-03-us/deployment.yml
+	kubectl --context="us-east1-b" apply -f k8s/dovecot-dsync/proxy/deployment.yml
 
 .PHONY: dovecot-dsync-eu-backend1
 dovecot-dsync-eu-backend1:
-	kubectl --context gke_pluto-167312_europe-west1-b_europe-west1-b --namespace dovecot-dsync exec `kubectl --context gke_pluto-167312_europe-west1-b_europe-west1-b -n dovecot-dsync get pods | grep backend-1 | cut -d ' ' -f1` -c backend-1-eu -i -t bash
+	kubectl --context europe-west1-b --namespace dovecot-dsync exec `kubectl --context europe-west1-b -n dovecot-dsync get pods | grep backend-1 | cut -d ' ' -f1` -c backend-1-eu -i -t bash
 
 .PHONY: dovecot-dsync-eu-backend2
 dovecot-dsync-eu-backend2:
-	kubectl --context gke_pluto-167312_europe-west1-b_europe-west1-b --namespace dovecot-dsync exec `kubectl --context gke_pluto-167312_europe-west1-b_europe-west1-b -n dovecot-dsync get pods | grep backend-2 | cut -d ' ' -f1` -c backend-2-eu -i -t bash
+	kubectl --context europe-west1-b --namespace dovecot-dsync exec `kubectl --context europe-west1-b -n dovecot-dsync get pods | grep backend-2 | cut -d ' ' -f1` -c backend-2-eu -i -t bash
 
 .PHONY: dovecot-dsync-eu-backend3
 dovecot-dsync-eu-backend3:
-	kubectl --context gke_pluto-167312_europe-west1-b_europe-west1-b --namespace dovecot-dsync exec `kubectl --context gke_pluto-167312_europe-west1-b_europe-west1-b -n dovecot-dsync get pods | grep backend-3 | cut -d ' ' -f1` -c backend-3-eu -i -t bash
+	kubectl --context europe-west1-b --namespace dovecot-dsync exec `kubectl --context europe-west1-b -n dovecot-dsync get pods | grep backend-3 | cut -d ' ' -f1` -c backend-3-eu -i -t bash
 
 .PHONY: dovecot-dsync-us-backend1
 dovecot-dsync-us-backend1:
-	kubectl --context gke_pluto-167312_us-east1-b_us-east1-b --namespace dovecot-dsync exec `kubectl --context gke_pluto-167312_us-east1-b_us-east1-b -n dovecot-dsync get pods | grep backend-1 | cut -d ' ' -f1` -c backend-1-us -i -t bash
+	kubectl --context us-east1-b --namespace dovecot-dsync exec `kubectl --context us-east1-b -n dovecot-dsync get pods | grep backend-1 | cut -d ' ' -f1` -c backend-1-us -i -t bash
 
 .PHONY: dovecot-dsync-us-backend2
 dovecot-dsync-us-backend2:
-	kubectl --context gke_pluto-167312_us-east1-b_us-east1-b --namespace dovecot-dsync exec `kubectl --context gke_pluto-167312_us-east1-b_us-east1-b -n dovecot-dsync get pods | grep backend-2 | cut -d ' ' -f1` -c backend-2-us -i -t bash
+	kubectl --context us-east1-b --namespace dovecot-dsync exec `kubectl --context us-east1-b -n dovecot-dsync get pods | grep backend-2 | cut -d ' ' -f1` -c backend-2-us -i -t bash
 
 .PHONY: dovecot-dsync-us-backend3
 dovecot-dsync-us-backend3:
-	kubectl --context gke_pluto-167312_us-east1-b_us-east1-b --namespace dovecot-dsync exec `kubectl --context gke_pluto-167312_us-east1-b_us-east1-b -n dovecot-dsync get pods | grep backend-3 | cut -d ' ' -f1` -c backend-3-us -i -t bash
+	kubectl --context us-east1-b --namespace dovecot-dsync exec `kubectl --context us-east1-b -n dovecot-dsync get pods | grep backend-3 | cut -d ' ' -f1` -c backend-3-us -i -t bash
 
 
 ### DOVECOT SIMPLE ###
 
 .PHONY: dovecot-simple-stop
 dovecot-simple-stop:
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-simple/backend-1/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-simple/backend-2/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-simple/backend-3/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-simple/proxy/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-simple/backend-1/pvc.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-simple/backend-2/pvc.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-simple/backend-3/pvc.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-simple/backend-1/deployment.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-simple/backend-2/deployment.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-simple/backend-3/deployment.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-simple/proxy/deployment.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-simple/backend-1/pvc.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-simple/backend-2/pvc.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/dovecot-simple/backend-3/pvc.yml
 
 .PHONY: dovecot-simple-start
 dovecot-simple-start:
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-simple/backend-1/pvc.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-simple/backend-2/pvc.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-simple/backend-3/pvc.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-simple/backend-1/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-simple/backend-2/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-simple/backend-3/deployment.yml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/dovecot-simple/proxy/deployment.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-simple/backend-1/pvc.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-simple/backend-2/pvc.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-simple/backend-3/pvc.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-simple/backend-1/deployment.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-simple/backend-2/deployment.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-simple/backend-3/deployment.yml
+	kubectl --context="europe-west1-b" apply -f k8s/dovecot-simple/proxy/deployment.yml
 
 .PHONY: dovecot-simple-forward
 dovecot-simple-forward:
@@ -165,7 +165,7 @@ prometheus-configmap:
 
 .PHONY: prometheus-forward
 prometheus-forward:
-	kubectl --namespace monitoring port-forward `kubectl --namespace monitoring get pods | grep prometheus | cut -d ' ' -f1` 9090
+	kubectl --context europe-west3-b --namespace monitoring port-forward `kubectl --context europe-west3-b --namespace monitoring get pods | grep prometheus | cut -d ' ' -f1` 9090
 
 .PHONY: grafana-forward
 grafana-forward:
@@ -173,7 +173,7 @@ grafana-forward:
 
 .PHONY: kubectl-proxy
 kubectl-proxy:
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" proxy --port=8080 & kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" proxy --port=8081
+	kubectl --context="europe-west1-b" proxy --port=8080 & kubectl --context="us-east1-b" proxy --port=8081
 
 
 ### PLUTO ###
