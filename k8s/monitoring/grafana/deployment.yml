@@ -5,6 +5,18 @@ metadata:
   namespace: monitoring
   labels:
     app: grafana
+  annotations:
+    federation.kubernetes.io/deployment-preferences: |
+        {
+            "rebalance": true,
+            "clusters": {
+                "europe-west3-b": {
+                    "minReplicas": 1,
+                    "maxReplicas": 1,
+                    "weight": 1
+                }
+            }
+        }
 spec:
   replicas: 1
   template:
