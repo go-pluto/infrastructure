@@ -17,18 +17,3 @@ for cluster in ${CLUSTERS}; do
 		--cluster=gke_${GCP_PROJECT}_${cluster}_${cluster} \
 		--user=gke_${GCP_PROJECT}_${cluster}_${cluster}
 done
-
-kubectl config set-context host-cluster \
-	--cluster=gke_${GCP_PROJECT}_${HOST_CLUSTER}_${HOST_CLUSTER} \
-	--user=gke_${GCP_PROJECT}_${HOST_CLUSTER}_${HOST_CLUSTER} \
-	--namespace=federation-system
-
-# kubectl config use-context host-cluster
-
-# kubefed init federation --host-cluster-context=host-cluster --dns-provider='google-clouddns' --dns-zone-name='federation.go-pluto.de.'
-
-# kubectl config use-context federation
-
-# for cluster in ${CLUSTERS}; do
-#   kubefed join ${cluster} --host-cluster-context=host-cluster
-# done

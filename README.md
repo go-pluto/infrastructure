@@ -7,4 +7,5 @@ Configs and infrastructure-related code for [pluto](https://github.com/go-pluto/
 Simply run `./connect.sh`.  
 Before that ensure that you're connected to the right GCP project. `gcloud config list --format='value(core.project)'`.
 
-Connect to the federation by merging `.kube/config` with the contents of `gopass pluto/gke/federation-kubeconfig`...
+Connect to the federation by merging `.kube/config` with the contents of `gopass pluto/gke/federation-kubeconfig`...  
+Don't forget to run `kubectl config use-context federation` afterwards.
