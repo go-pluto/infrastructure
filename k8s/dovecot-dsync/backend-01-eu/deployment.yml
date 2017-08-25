@@ -16,6 +16,7 @@ spec:
       containers:
       - name: backend-1-eu
         image: gopluto/dovecot:16.04
+        imagePullPolicy: Always
         ports:
         - name: imap
           containerPort: 993
@@ -44,7 +45,7 @@ spec:
         command:
         - '/bin/maildir_exporter'
         - '-logLevel'
-        - 'error'
+        - 'debug'
         - '-maildirRootPath'
         - '/data/maildir'
         ports:

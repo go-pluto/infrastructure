@@ -16,6 +16,7 @@ spec:
       containers:
       - name: backend-2-us
         image: gopluto/dovecot:16.04
+        imagePullPolicy: Always
         ports:
         - name: imap
           containerPort: 993
