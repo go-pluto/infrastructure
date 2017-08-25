@@ -88,6 +88,7 @@ data:
 
     plugin {
       mail_replica = tcps:backend-1-eu.dovecot-dsync.federation.svc.federation.go-pluto.de:12345 # use doveadm_port
+      #mail_replica = tcps:35.187.109.154:12345
       #mail_replica = tcp:anotherhost.example.com:12345 # use port 12345 explicitly
     }
 

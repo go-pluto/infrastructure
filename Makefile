@@ -171,6 +171,10 @@ prometheus-forward:
 grafana-forward:
 	kubectl --context europe-west3-b --namespace monitoring port-forward `kubectl --context europe-west3-b --namespace monitoring get pods | grep grafana | cut -d ' ' -f1` 3000
 
+.PHONY: kubectl-proxy
+kubectl-proxy:
+	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" proxy --port=8080 & kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" proxy --port=8081
+
 
 ### PLUTO ###
 
