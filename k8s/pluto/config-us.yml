@@ -33,9 +33,9 @@ data:
 
         [Workers.us-worker-1]
         Name = "us-worker-1"
-        PublicMailAddr = "us-worker-1:20001"
+        PublicMailAddr = "worker-1:20001"
         ListenMailAddr = "0.0.0.0:20001"
-        PublicSyncAddr = "us-worker-1:30001"
+        PublicSyncAddr = "worker-1:30001"
         ListenSyncAddr = "0.0.0.0:30001"
         PrometheusAddr = "0.0.0.0:9999"
         CertLoc = "/certs/internal/cert/internal-us-worker-1-cert.pem"
@@ -51,9 +51,9 @@ data:
 
         [Workers.us-worker-2]
         Name = "us-worker-2"
-        PublicMailAddr = "us-worker-2:20001"
+        PublicMailAddr = "worker-2:20001"
         ListenMailAddr = "0.0.0.0:20001"
-        PublicSyncAddr = "us-worker-2:30001"
+        PublicSyncAddr = "worker-2:30001"
         ListenSyncAddr = "0.0.0.0:30001"
         PrometheusAddr = "0.0.0.0:9999"
         CertLoc = "/certs/internal/cert/internal-us-worker-2-cert.pem"
@@ -69,9 +69,9 @@ data:
 
         [Workers.us-worker-3]
         Name = "us-worker-3"
-        PublicMailAddr = "us-worker-3:20001"
+        PublicMailAddr = "worker-3:20001"
         ListenMailAddr = "0.0.0.0:20001"
-        PublicSyncAddr = "us-worker-3:30001"
+        PublicSyncAddr = "worker-3:30001"
         ListenSyncAddr = "0.0.0.0:30001"
         PrometheusAddr = "0.0.0.0:9999"
         CertLoc = "/certs/internal/cert/internal-us-worker-3-cert.pem"
@@ -99,13 +99,13 @@ data:
     CRDTLayerRoot = "/data/crdt-layers"
 
         [Storage.Peers.subnet-1]
-        eu-worker-1 = "eu-worker-1.pluto.federation.svc.europe-west1.federation.go-pluto.de:30001"
-        us-worker-1 = "us-worker-1.pluto.federation.svc.us-east1.federation.go-pluto.de:30001"
+        eu-worker-1 = "worker-1.pluto.federation.svc.europe-west1.federation.go-pluto.de:30001"
+        us-worker-1 = "worker-1.pluto.federation.svc.us-east1.federation.go-pluto.de:30001"
 
         [Storage.Peers.subnet-2]
-        eu-worker-2 = "eu-worker-2.pluto.federation.svc.europe-west1.federation.go-pluto.de:30001"
-        us-worker-2 = "us-worker-2.pluto.federation.svc.us-east1.federation.go-pluto.de:30001"
+        eu-worker-2 = "worker-2.pluto.federation.svc.europe-west1.federation.go-pluto.de:30001"
+        us-worker-2 = "worker-2.pluto.federation.svc.us-east1.federation.go-pluto.de:30001"
 
         [Storage.Peers.subnet-3]
-        eu-worker-3 = "eu-worker-3.pluto.federation.svc.europe-west1.federation.go-pluto.de:30001"
-        us-worker-3 = "us-worker-3.pluto.federation.svc.us-east1.federation.go-pluto.de:30001"
+        eu-worker-3 = "worker-3.pluto.federation.svc.europe-west1.federation.go-pluto.de:30001"
+        us-worker-3 = "worker-3.pluto.federation.svc.us-east1.federation.go-pluto.de:30001"
