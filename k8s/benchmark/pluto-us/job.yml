@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pluto-us-benchmark
+  namespace: benchmark
+spec:
+  template:
+    metadata:
+      name: pluto-us-benchmark
+      labels:
+        app: benchmark
+    spec:
+      containers:
+      - name: benchmark
+        image: gopluto/benchmark
+        command:
+        - '/bin/benchmark'
+        - '-config'
+        - '/config/config.toml'
+        - '-userdb'
+        - '/users/passwd'
+        - '-logtostderr=true'
+        - '-v=0'
+        env:
+        - name: GOOGLE_CLOUD_PROJECT
+          value: pluto-167312
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /certs/accounts/service-account.json
+        resources:
+          requests:
+            cpu: 100m
+            memory: 2048Mi
+        volumeMounts:
+        - name: benchmark-config
+          mountPath: /config
+        - name: benchmark-users
+          mountPath: /users
+        - name: benchmark-serviceaccount
+          mountPath: /certs/accounts
+      volumes:
+      - name: benchmark-config
+        configMap:
+          name: pluto-us-benchmark.conf
+      - name: benchmark-users
+        configMap:
+          name: pluto-users.passwd
+      - name: benchmark-serviceaccount
+        secret:
+          secretName: service-account.json
+      restartPolicy: Never

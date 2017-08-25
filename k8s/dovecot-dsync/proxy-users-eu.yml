@@ -4,7 +4,7 @@ metadata:
   name: proxy.passwd
   namespace: dovecot-dsync
 data:
-  passwd: |-
+  passwd: |+
     user1@example.com:::::::host=10.31.249.101
     user2@example.com:::::::host=10.31.249.102
     user3@example.com:::::::host=10.31.249.100

@@ -45,7 +45,7 @@ spec:
         command:
           - '/bin/maildir_exporter'
           - '-logLevel'
-          - 'debug'
+          - 'error'
           - '-maildirRootPath'
           - '/data/maildir'
         ports:
@@ -63,7 +63,7 @@ spec:
           name: backend-1.conf
       - name: backend-users
         configMap:
-          name: users.passwd
+          name: backend-01.passwd
       - name: root-cert
         secret:
           secretName: dovecotca.pem

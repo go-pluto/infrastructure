@@ -63,7 +63,7 @@ spec:
           name: backend-3.conf
       - name: backend-users
         configMap:
-          name: users.passwd
+          name: backend-03.passwd
       - name: root-cert
         secret:
           secretName: dovecotca.pem

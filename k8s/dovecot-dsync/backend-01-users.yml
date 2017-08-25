@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-01.passwd
+  namespace: dovecot-dsync
+data:
+  passwd: |+
+    user3@example.com:{plain}hello123::::
+    user6@example.com:{plain}hello123::::
+    user9@example.com:{plain}hello123::::
+    user12@example.com:{plain}hello123::::
+    user15@example.com:{plain}hello123::::
+    user18@example.com:{plain}hello123::::
+    user21@example.com:{plain}hello123::::
+    user24@example.com:{plain}hello123::::
+    user27@example.com:{plain}hello123::::
+    user30@example.com:{plain}hello123::::
+    user33@example.com:{plain}hello123::::
+    user36@example.com:{plain}hello123::::
+    user39@example.com:{plain}hello123::::
+    user42@example.com:{plain}hello123::::
+    user45@example.com:{plain}hello123::::
+    user48@example.com:{plain}hello123::::
+    user51@example.com:{plain}hello123::::
+    user54@example.com:{plain}hello123::::
+    user57@example.com:{plain}hello123::::
+    user60@example.com:{plain}hello123::::
+    user63@example.com:{plain}hello123::::
+    user66@example.com:{plain}hello123::::
+    user69@example.com:{plain}hello123::::
+    user72@example.com:{plain}hello123::::
+    user75@example.com:{plain}hello123::::
+    user78@example.com:{plain}hello123::::
+    user81@example.com:{plain}hello123::::
+    user84@example.com:{plain}hello123::::
+    user87@example.com:{plain}hello123::::
+    user90@example.com:{plain}hello123::::
+    user93@example.com:{plain}hello123::::
+    user96@example.com:{plain}hello123::::
+    user99@example.com:{plain}hello123::::
+    user102@example.com:{plain}hello123::::
+    user105@example.com:{plain}hello123::::
+    user108@example.com:{plain}hello123::::
+    user111@example.com:{plain}hello123::::
+    user114@example.com:{plain}hello123::::
+    user117@example.com:{plain}hello123::::
+    user120@example.com:{plain}hello123::::

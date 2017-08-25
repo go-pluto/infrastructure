@@ -11,17 +11,3 @@ spec:
   resources:
     requests:
       storage: 100Gi
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: us-worker-3-data
-  namespace: pluto
-  annotations:
-    volume.beta.kubernetes.io/storage-class: us-east1-b-ssd
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 100Gi
