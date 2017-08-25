@@ -9,6 +9,9 @@ spec:
     metadata:
       labels:
         app: backend-3-eu
+      annotations:
+        prometheus.io/path: "/metrics"
+        prometheus.io/scrape: "true"
     spec:
       containers:
       - name: backend-3-eu
