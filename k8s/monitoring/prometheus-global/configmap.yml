@@ -35,4 +35,5 @@ data:
         - targets:
           - 'prometheus.monitoring.federation.svc.europe-west1.federation.go-pluto.de:9090'
           - 'prometheus.monitoring.federation.svc.europe-west2.federation.go-pluto.de:9090'
+          - 'prometheus.monitoring.federation.svc.europe-west3.federation.go-pluto.de:9090'
           - 'prometheus.monitoring.federation.svc.us-east1.federation.go-pluto.de:9090'
