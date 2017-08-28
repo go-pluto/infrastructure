@@ -40,20 +40,31 @@ spec:
         - name: us-key
           mountPath: /certs/internal/key/
       - name: maildir-exporter
-        image: gopluto/maildir_exporter
+        image: gopluto/maildir_exporter:du
         imagePullPolicy: Always
         command:
-          - '/bin/maildir_exporter'
-          - '-logLevel'
-          - 'error'
-          - '-maildirRootPath'
-          - '/data/maildir'
+        - '/bin/maildir_exporter'
+        - '-logLevel'
+        - 'debug'
+        - '-maildirRootPath'
+        - '/data/maildir'
+        - '-users'
+        - 'user31@example.com'
+        - '-workerName'
+        - 'backend-02-us'
+        env:
+        - name: GOOGLE_CLOUD_PROJECT
+          value: pluto-167312
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /certs/accounts/service-account.json
         ports:
         - name: metrics
           containerPort: 9275
         volumeMounts:
         - name: data
           mountPath: /data
+        - name: serviceaccount
+          mountPath: /certs/accounts
       volumes:
       - name: data
         persistentVolumeClaim:
@@ -73,3 +84,6 @@ spec:
       - name: us-key
         secret:
           secretName: us2.key
+      - name: serviceaccount
+        secret:
+          secretName: service-account.json             

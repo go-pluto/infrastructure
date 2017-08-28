@@ -133,6 +133,11 @@ dovecot-dsync-us-backend2:
 dovecot-dsync-us-backend3:
 	kubectl --context us-east1-b --namespace dovecot-dsync exec `kubectl --context us-east1-b -n dovecot-dsync get pods | grep backend-3 | cut -d ' ' -f1` -c backend-3-us -i -t bash
 
+.PHONY: dsync-secrets
+dsync-secrets:
+	mkdir -p k8s/dovecot-dsync/secrets/
+	gopass show -f pluto/gke/benchmark/service-account.json > k8s/dovecot-dsync/secrets/service-account.json
+	kubectl --namespace dovecot-dsync create secret generic service-account.json --from-file k8s/dovecot-dsync/secrets/service-account.json
 
 ### DOVECOT SIMPLE ###
 

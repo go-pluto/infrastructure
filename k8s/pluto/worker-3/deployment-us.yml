@@ -72,20 +72,31 @@ spec:
         - name: internal-worker-3-key
           mountPath: /certs/internal/key/
       - name: maildir-exporter
-        image: gopluto/maildir_exporter
+        image: gopluto/maildir_exporter:du
         imagePullPolicy: Always
         command:
         - '/bin/maildir_exporter'
         - '-logLevel'
-        - 'error'
+        - 'debug'
         - '-maildirRootPath'
         - '/data/maildirs'
+        - '-users'
+        - 'user110'
+        - '-workerName'
+        - 'worker-03-us'
+        env:
+        - name: GOOGLE_CLOUD_PROJECT
+          value: pluto-167312
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /certs/accounts/service-account.json
         ports:
         - name: metrics
           containerPort: 9275
         volumeMounts:
         - name: data
           mountPath: /data
+        - name: serviceaccount
+          mountPath: /certs/accounts
       volumes:
       - name: data
         persistentVolumeClaim:
@@ -105,3 +116,6 @@ spec:
       - name: internal-worker-3-key
         secret:
           secretName: internal-us-worker-3-key.pem
+      - name: serviceaccount
+        secret:
+          secretName: service-account.json             
