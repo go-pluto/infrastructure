@@ -209,13 +209,6 @@ pluto-secrets:
 
 .PHONY: pluto-stop
 pluto-stop:
-	kubectl --context="gke_pluto-167312_europe-west2-b_europe-west2-b" delete --ignore-not-found=true -f k8s/pluto/storage/pvc.yaml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/worker-1/pvc-eu.yaml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/worker-2/pvc-eu.yaml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/worker-3/pvc-eu.yaml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" delete --ignore-not-found=true -f k8s/pluto/worker-1/pvc-us.yaml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" delete --ignore-not-found=true -f k8s/pluto/worker-2/pvc-us.yaml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" delete --ignore-not-found=true -f k8s/pluto/worker-3/pvc-us.yaml
 	kubectl delete --ignore-not-found=true -f k8s/pluto/distributor/deployment.yml
 	kubectl delete --ignore-not-found=true -f k8s/pluto/storage/deployment.yml
 	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-1/deployment-eu.yml
@@ -224,16 +217,23 @@ pluto-stop:
 	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-2/deployment-us.yml
 	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-3/deployment-eu.yml
 	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-3/deployment-us.yml
+	kubectl --context="europe-west2-b" delete --ignore-not-found=true -f k8s/pluto/storage/pvc.yaml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/worker-1/pvc-eu.yaml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/worker-2/pvc-eu.yaml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/worker-3/pvc-eu.yaml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/pluto/worker-1/pvc-us.yaml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/pluto/worker-2/pvc-us.yaml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/pluto/worker-3/pvc-us.yaml
 
 .PHONY: pluto-start
 pluto-start:
-	kubectl --context="gke_pluto-167312_europe-west2-b_europe-west2-b" apply -f k8s/pluto/storage/pvc.yaml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/pluto/worker-1/pvc-eu.yaml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/pluto/worker-2/pvc-eu.yaml
-	kubectl --context="gke_pluto-167312_europe-west1-b_europe-west1-b" apply -f k8s/pluto/worker-3/pvc-eu.yaml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/pluto/worker-1/pvc-us.yaml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/pluto/worker-2/pvc-us.yaml
-	kubectl --context="gke_pluto-167312_us-east1-b_us-east1-b" apply -f k8s/pluto/worker-3/pvc-us.yaml
+	kubectl --context="europe-west2-b" apply -f k8s/pluto/storage/pvc.yaml
+	kubectl --context="europe-west1-b" apply -f k8s/pluto/worker-1/pvc-eu.yaml
+	kubectl --context="europe-west1-b" apply -f k8s/pluto/worker-2/pvc-eu.yaml
+	kubectl --context="europe-west1-b" apply -f k8s/pluto/worker-3/pvc-eu.yaml
+	kubectl --context="us-east1-b" apply -f k8s/pluto/worker-1/pvc-us.yaml
+	kubectl --context="us-east1-b" apply -f k8s/pluto/worker-2/pvc-us.yaml
+	kubectl --context="us-east1-b" apply -f k8s/pluto/worker-3/pvc-us.yaml
 	kubectl apply -f k8s/pluto/distributor/deployment.yml
 	kubectl apply -f k8s/pluto/storage/deployment.yml
 	kubectl apply -f k8s/pluto/worker-1/deployment-eu.yml
