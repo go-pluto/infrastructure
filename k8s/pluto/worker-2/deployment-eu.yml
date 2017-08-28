@@ -42,7 +42,7 @@ spec:
         command:
         - '/bin/pluto'
         - '-loglevel'
-        - 'error'
+        - 'debug'
         - '-config'
         - '/config/pluto.toml'
         - '-worker'

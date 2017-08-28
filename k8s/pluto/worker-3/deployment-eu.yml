@@ -42,7 +42,7 @@ spec:
         command:
         - '/bin/pluto'
         - '-loglevel'
-        - 'error'
+        - 'debug'
         - '-config'
         - '/config/pluto.toml'
         - '-worker'
@@ -118,4 +118,4 @@ spec:
           secretName: internal-eu-worker-3-key.pem
       - name: serviceaccount
         secret:
-          secretName: service-account.json          
+          secretName: service-account.json
