@@ -13,6 +13,12 @@ spec:
   - name: mail
     port: 21000
     targetPort: 21000
-  - name: sync
+  - name: sync-subnet-1
     port: 31000
     targetPort: 31000
+  - name: sync-subnet-2
+    port: 32000
+    targetPort: 32000
+  - name: sync-subnet-3
+    port: 33000
+    targetPort: 33000

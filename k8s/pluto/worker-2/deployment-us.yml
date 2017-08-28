@@ -48,10 +48,6 @@ spec:
         - '-worker'
         - 'us-worker-2'
         ports:
-        - name: mail
-          containerPort: 20001
-        - name: sync
-          containerPort: 30001
         - name: metrics
           containerPort: 9999
         resources:

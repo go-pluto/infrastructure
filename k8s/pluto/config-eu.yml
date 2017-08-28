@@ -65,7 +65,7 @@ data:
 
             [Workers.eu-worker-2.Peers.subnet-1]
             us-worker-2 = "worker-2.pluto.federation.svc.us-east1.federation.go-pluto.de:30001"
-            storage = "storage.pluto.federation.svc.federation.go-pluto.de:31000"
+            storage = "storage.pluto.federation.svc.federation.go-pluto.de:32000"
 
         [Workers.eu-worker-3]
         Name = "eu-worker-3"
@@ -83,28 +83,38 @@ data:
 
             [Workers.eu-worker-3.Peers.subnet-1]
             us-worker-3 = "worker-3.pluto.federation.svc.us-east1.federation.go-pluto.de:30001"
-            storage = "storage.pluto.federation.svc.federation.go-pluto.de:31000"
+            storage = "storage.pluto.federation.svc.federation.go-pluto.de:33000"
 
 
     [Storage]
     Name = "storage"
     PublicMailAddr = "storage.pluto.federation.svc.federation.go-pluto.de:21000"
     ListenMailAddr = "0.0.0.0:21000"
-    PublicSyncAddr = "storage.pluto.federation.svc.federation.go-pluto.de:31000"
-    ListenSyncAddr = "0.0.0.0:31000"
     PrometheusAddr = "0.0.0.0:9999"
     CertLoc = "/certs/internal/cert/internal-storage-cert.pem"
     KeyLoc = "/certs/internal/key/internal-storage-key.pem"
     MaildirRoot = "/data/maildirs"
     CRDTLayerRoot = "/data/crdt-layers"
 
+        [Storage.SyncAddrs.subnet-1]
+        Public = "storage.pluto.federation.svc.federation.go-pluto.de:31000"
+        Listen = "0.0.0.0:31000"
+
         [Storage.Peers.subnet-1]
         eu-worker-1 = "worker-1.pluto.federation.svc.europe-west1.federation.go-pluto.de:30001"
         us-worker-1 = "worker-1.pluto.federation.svc.us-east1.federation.go-pluto.de:30001"
 
+        [Storage.SyncAddrs.subnet-2]
+        Public = "storage.pluto.federation.svc.federation.go-pluto.de:32000"
+        Listen = "0.0.0.0:32000"
+
         [Storage.Peers.subnet-2]
         eu-worker-2 = "worker-2.pluto.federation.svc.europe-west1.federation.go-pluto.de:30001"
         us-worker-2 = "worker-2.pluto.federation.svc.us-east1.federation.go-pluto.de:30001"
+
+        [Storage.SyncAddrs.subnet-3]
+        Public = "storage.pluto.federation.svc.federation.go-pluto.de:33000"
+        Listen = "0.0.0.0:33000"
 
         [Storage.Peers.subnet-3]
         eu-worker-3 = "worker-3.pluto.federation.svc.europe-west1.federation.go-pluto.de:30001"

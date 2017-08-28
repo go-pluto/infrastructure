@@ -47,8 +47,6 @@ spec:
         - '/config/pluto.toml'
         - '-distributor'
         ports:
-        - name: public
-          containerPort: 1993
         - name: metrics
           containerPort: 9999
         resources:
