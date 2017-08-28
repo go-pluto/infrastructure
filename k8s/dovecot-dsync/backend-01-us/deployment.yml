@@ -45,11 +45,11 @@ spec:
         command:
         - '/bin/maildir_exporter'
         - '-logLevel'
-        - 'debug'
+        - 'error'
         - '-maildirRootPath'
         - '/data/maildir'
         - '-users'
-        - 'user30@example.com'
+        - 'user9@example.com,user27@example.com'
         - '-workerName'
         - 'backend-01-us'
         env:

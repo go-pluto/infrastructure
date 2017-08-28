@@ -45,11 +45,11 @@ spec:
         command:
         - '/bin/maildir_exporter'
         - '-logLevel'
-        - 'debug'
+        - 'error'
         - '-maildirRootPath'
         - '/data/maildir'
         - '-users'
-        - 'user32@example.com'
+        - 'user95@example.com,user113@example.com'
         - '-workerName'
         - 'backend-03-us'
         env:
@@ -86,4 +86,4 @@ spec:
           secretName: us3.key
       - name: serviceaccount
         secret:
-          secretName: service-account.json               
+          secretName: service-account.json
