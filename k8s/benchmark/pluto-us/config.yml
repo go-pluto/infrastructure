@@ -11,7 +11,7 @@ data:
 
     [settings]
     threads = 20
-    sessions = 1000
+    sessions = 10000
     throttle = 50 # unused
     seed = 1
 

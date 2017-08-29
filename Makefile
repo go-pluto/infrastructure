@@ -36,10 +36,10 @@ benchmark-pluto-simple:
 
 .PHONY: benchmark-pluto-us
 benchmark-pluto-us:
-	kubectl apply -f k8s/benchmark/pluto-users.yml
-	kubectl delete --ignore-not-found=true -f k8s/benchmark/pluto-us/job.yml
-	kubectl apply -f k8s/benchmark/pluto-us/config.yml
-	kubectl apply -f k8s/benchmark/pluto-us/job.yml
+	kubectl --context="us-east1-b" apply -f k8s/benchmark/pluto-users.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/benchmark/pluto-us/job.yml
+	kubectl --context="us-east1-b" apply -f k8s/benchmark/pluto-us/config.yml
+	kubectl --context="us-east1-b" apply -f k8s/benchmark/pluto-us/job.yml
 
 
 ### DOVECOT ###
@@ -211,12 +211,12 @@ pluto-secrets:
 pluto-stop:
 	kubectl delete --ignore-not-found=true -f k8s/pluto/distributor/deployment.yml
 	kubectl delete --ignore-not-found=true -f k8s/pluto/storage/deployment.yml
-	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-1/deployment-eu.yml
-	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-1/deployment-us.yml
-	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-2/deployment-eu.yml
-	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-2/deployment-us.yml
-	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-3/deployment-eu.yml
-	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-3/deployment-us.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/worker-1/deployment-eu.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/pluto/worker-1/deployment-us.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/worker-2/deployment-eu.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/pluto/worker-2/deployment-us.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/worker-3/deployment-eu.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/pluto/worker-3/deployment-us.yml
 	kubectl --context="europe-west2-b" delete --ignore-not-found=true -f k8s/pluto/storage/pvc.yaml
 	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/worker-1/pvc-eu.yaml
 	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/worker-2/pvc-eu.yaml
@@ -236,12 +236,12 @@ pluto-start:
 	kubectl --context="us-east1-b" apply -f k8s/pluto/worker-3/pvc-us.yaml
 	kubectl apply -f k8s/pluto/distributor/deployment.yml
 	kubectl apply -f k8s/pluto/storage/deployment.yml
-	kubectl apply -f k8s/pluto/worker-1/deployment-eu.yml
-	kubectl apply -f k8s/pluto/worker-1/deployment-us.yml
-	kubectl apply -f k8s/pluto/worker-2/deployment-eu.yml
-	kubectl apply -f k8s/pluto/worker-2/deployment-us.yml
-	kubectl apply -f k8s/pluto/worker-3/deployment-eu.yml
-	kubectl apply -f k8s/pluto/worker-3/deployment-us.yml
+	kubectl --context="europe-west1-b" apply -f k8s/pluto/worker-1/deployment-eu.yml
+	kubectl --context="us-east1-b" apply -f k8s/pluto/worker-1/deployment-us.yml
+	kubectl --context="us-east1-b" apply -f k8s/pluto/worker-2/deployment-us.yml
+	kubectl --context="europe-west1-b" apply -f k8s/pluto/worker-3/deployment-eu.yml
+	kubectl --context="us-east1-b" apply -f k8s/pluto/worker-3/deployment-us.yml
+	kubectl --context="europe-west1-b" apply -f k8s/pluto/worker-2/deployment-eu.yml
 
 .PHONY: pluto-distributor-forward
 pluto-distributor-forward:
