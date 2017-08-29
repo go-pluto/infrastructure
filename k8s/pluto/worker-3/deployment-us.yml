@@ -77,7 +77,7 @@ spec:
         - '-maildirRootPath'
         - '/data/maildirs'
         - '-users'
-        - 'user110'
+        - 'user95@example.com,user113@example.com'
         - '-workerName'
         - 'worker-03-us'
         env:
