@@ -20,6 +20,17 @@ benchmark-dsync-dovecot-us:
 	kubectl --context="us-east1-b" apply -f k8s/benchmark/dovecot-dsync-us/config.yml
 	kubectl --context="us-east1-b" apply -f k8s/benchmark/dovecot-dsync-us/job.yml
 
+.PHONY: benchmark-dsync-dovecot-2
+benchmark-dsync-dovecot-2:
+	kubectl --context="us-east1-b" apply -f k8s/benchmark/dovecot-users_us.yml
+	kubectl --context="europe-west1-b" apply -f k8s/benchmark/dovecot-users_eu.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/benchmark/dovecot-dsync-us/job.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/benchmark/dovecot-dsync-eu/job.yml
+	kubectl --context="us-east1-b" apply -f k8s/benchmark/dovecot-dsync-us/config.yml
+	kubectl --context="europe-west1-b" apply -f k8s/benchmark/dovecot-dsync-eu/config.yml
+	kubectl --context="us-east1-b" apply -f k8s/benchmark/dovecot-dsync-us/job.yml
+	kubectl --context="europe-west1-b" apply -f k8s/benchmark/dovecot-dsync-eu/job.yml
+
 .PHONY: benchmark-dovecot-simple
 benchmark-dovecot-simple:
 	kubectl apply -f k8s/benchmark/dovecot-users.yml
