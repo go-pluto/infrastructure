@@ -209,14 +209,15 @@ pluto-secrets:
 
 .PHONY: pluto-stop
 pluto-stop:
-	kubectl delete --ignore-not-found=true -f k8s/pluto/distributor/deployment.yml
-	kubectl delete --ignore-not-found=true -f k8s/pluto/storage/deployment.yml
-	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-1/deployment-eu.yml
-	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-1/deployment-us.yml
-	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-2/deployment-eu.yml
-	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-2/deployment-us.yml
-	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-3/deployment-eu.yml
-	kubectl delete --ignore-not-found=true -f k8s/pluto/worker-3/deployment-us.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/distributor/deployment.yml
+	kubectl --context="europe-west2-b" delete --ignore-not-found=true -f k8s/pluto/storage/deployment.yml
+	kubectl  --context="us-east1-b"delete --ignore-not-found=true -f k8s/pluto/distributor/deployment.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/worker-1/deployment-eu.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/pluto/worker-1/deployment-us.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/worker-2/deployment-eu.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/pluto/worker-2/deployment-us.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/worker-3/deployment-eu.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/pluto/worker-3/deployment-us.yml
 	kubectl --context="europe-west2-b" delete --ignore-not-found=true -f k8s/pluto/storage/pvc.yaml
 	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/worker-1/pvc-eu.yaml
 	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/worker-2/pvc-eu.yaml
