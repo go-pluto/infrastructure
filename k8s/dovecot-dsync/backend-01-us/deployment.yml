@@ -48,6 +48,8 @@ spec:
         - 'error'
         - '-maildirRootPath'
         - '/data/maildir'
+        - '-interval'
+        - '1s'
         - '-users'
         - 'user9@example.com,user27@example.com'
         - '-workerName'
