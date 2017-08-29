@@ -15,10 +15,10 @@ benchmark-dsync-dovecot-eu:
 
 .PHONY: benchmark-dsync-dovecot-us
 benchmark-dsync-dovecot-us:
-	kubectl apply -f k8s/benchmark/dovecot-users.yml
-	kubectl delete --ignore-not-found=true -f k8s/benchmark/dovecot-dsync-us/job.yml
-	kubectl apply -f k8s/benchmark/dovecot-dsync-us/config.yml
-	kubectl apply -f k8s/benchmark/dovecot-dsync-us/job.yml
+	kubectl --context="us-east1-b" apply -f k8s/benchmark/dovecot-users.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/benchmark/dovecot-dsync-us/job.yml
+	kubectl --context="us-east1-b" apply -f k8s/benchmark/dovecot-dsync-us/config.yml
+	kubectl --context="us-east1-b" apply -f k8s/benchmark/dovecot-dsync-us/job.yml
 
 .PHONY: benchmark-dovecot-simple
 benchmark-dovecot-simple:
