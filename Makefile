@@ -52,6 +52,17 @@ benchmark-pluto-us:
 	kubectl --context="us-east1-b" apply -f k8s/benchmark/pluto-us/config.yml
 	kubectl --context="us-east1-b" apply -f k8s/benchmark/pluto-us/job.yml
 
+.PHONY: benchmark-pluto-2
+benchmark-pluto-2:
+	kubectl --context="us-east1-b" apply -f k8s/benchmark/pluto-users_us.yml
+	kubectl --context="europe-west1-b" apply -f k8s/benchmark/pluto-users_eu.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/benchmark/pluto-us/job.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/benchmark/pluto-eu/job.yml
+	kubectl --context="us-east1-b" apply -f k8s/benchmark/pluto-us/config.yml
+	kubectl --context="europe-west1-b" apply -f k8s/benchmark/pluto-eu/config.yml
+	kubectl --context="us-east1-b" apply -f k8s/benchmark/pluto-us/job.yml
+	kubectl --context="europe-west1-b" apply -f k8s/benchmark/pluto-eu/job.yml
+
 
 ### DOVECOT ###
 
