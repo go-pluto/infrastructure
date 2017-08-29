@@ -42,7 +42,7 @@ spec:
         command:
         - '/bin/pluto'
         - '-loglevel'
-        - 'debug'
+        - 'error'
         - '-config'
         - '/config/pluto.toml'
         - '-worker'
@@ -73,9 +73,11 @@ spec:
         command:
         - '/bin/maildir_exporter'
         - '-logLevel'
-        - 'debug'
+        - 'error'
         - '-maildirRootPath'
         - '/data/maildirs'
+        - '-interval'
+        - '1s'
         - '-users'
         - 'user95,user113'
         - '-workerName'
