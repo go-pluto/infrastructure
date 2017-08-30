@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
+  app: worker-3
   name: us-worker-3
   namespace: pluto
 spec:
