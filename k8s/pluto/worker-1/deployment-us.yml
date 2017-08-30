@@ -1,119 +1,89 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
   name: us-worker-1
   namespace: pluto
-  annotations:
-    federation.kubernetes.io/deployment-preferences: |
-        {
-            "rebalance": true,
-            "clusters": {
-                "europe-west1-b": {
-                    "minReplicas": 0,
-                    "maxReplicas": 0,
-                    "weight": 0
-                },
-                "europe-west2-b": {
-                    "minReplicas": 0,
-                    "maxReplicas": 0,
-                    "weight": 0
-                },
-                "us-east1-b": {
-                    "minReplicas": 1,
-                    "maxReplicas": 1,
-                    "weight": 1
-                }
-            }
-        }
 spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: worker-1
-      annotations:
-        prometheus.io/path: "/metrics"
-        prometheus.io/scrape: "true"
-    spec:
-      containers:
-      - name: worker-1
-        image: gopluto/pluto
-        imagePullPolicy: Always
-        command:
-        - '/bin/pluto'
-        - '-loglevel'
-        - 'error'
-        - '-config'
-        - '/config/pluto.toml'
-        - '-worker'
-        - 'us-worker-1'
-        ports:
-        - name: metrics
-          containerPort: 9999
-        resources:
-          requests:
-            cpu: 100m
-            memory: 2048Mi
-        volumeMounts:
-        - name: data
-          mountPath: /data
-        - name: pluto-config
-          mountPath: /config
-        - name: pluto-users
-          mountPath: /users
-        - name: root-cert
-          mountPath: /certs/root
-        - name: internal-worker-1-cert
-          mountPath: /certs/internal/cert/
-        - name: internal-worker-1-key
-          mountPath: /certs/internal/key/
-      - name: maildir-exporter
-        image: gopluto/maildir_exporter:du
-        imagePullPolicy: Always
-        command:
-        - '/bin/maildir_exporter'
-        - '-logLevel'
-        - 'error'
-        - '-maildirRootPath'
-        - '/data/maildirs'
-        - '-interval'
-        - '1s'
-        - '-users'
-        - 'user9,user27'
-        - '-workerName'
-        - 'worker-01-us'
-        env:
-        - name: GOOGLE_CLOUD_PROJECT
-          value: pluto-167312
-        - name: GOOGLE_APPLICATION_CREDENTIALS
-          value: /certs/accounts/service-account.json
-        ports:
-        - name: metrics
-          containerPort: 9275
-        volumeMounts:
-        - name: data
-          mountPath: /data
-        - name: serviceaccount
-          mountPath: /certs/accounts
-      volumes:
-      - name: data
-        persistentVolumeClaim:
-          claimName: us-worker-1-data
-      - name: pluto-config
-        configMap:
-          name: us-pluto.toml
-      - name: pluto-users
-        configMap:
-          name: users.txt
-      - name: root-cert
-        secret:
-          secretName: root-cert.pem
-      - name: internal-worker-1-cert
-        secret:
-          secretName: internal-us-worker-1-cert.pem
-      - name: internal-worker-1-key
-        secret:
-          secretName: internal-us-worker-1-key.pem
-      - name: serviceaccount
-        secret:
-          secretName: service-account.json
+  restartPolicy: Never
+  containers:
+  - name: worker-1
+    image: gopluto/pluto
+    imagePullPolicy: Always
+    command:
+    - '/bin/pluto'
+    - '-loglevel'
+    - 'error'
+    - '-config'
+    - '/config/pluto.toml'
+    - '-worker'
+    - 'us-worker-1'
+    ports:
+    - name: metrics
+      containerPort: 9999
+    resources:
+      requests:
+        cpu: 100m
+        memory: 2048Mi
+    volumeMounts:
+    - name: data
+      mountPath: /data
+    - name: pluto-config
+      mountPath: /config
+    - name: pluto-users
+      mountPath: /users
+    - name: root-cert
+      mountPath: /certs/root
+    - name: internal-worker-1-cert
+      mountPath: /certs/internal/cert/
+    - name: internal-worker-1-key
+      mountPath: /certs/internal/key/
+  - name: maildir-exporter
+    image: gopluto/maildir_exporter:du
+    imagePullPolicy: Always
+    command:
+    - '/bin/maildir_exporter'
+    - '-logLevel'
+    - 'error'
+    - '-maildirRootPath'
+    - '/data/maildirs'
+    - '-interval'
+    - '1s'
+    - '-users'
+    - 'user9,user27'
+    - '-workerName'
+    - 'worker-01-us'
+    env:
+    - name: GOOGLE_CLOUD_PROJECT
+      value: pluto-167312
+    - name: GOOGLE_APPLICATION_CREDENTIALS
+      value: /certs/accounts/service-account.json
+    ports:
+    - name: metrics
+      containerPort: 9275
+    volumeMounts:
+    - name: data
+      mountPath: /data
+    - name: serviceaccount
+      mountPath: /certs/accounts
+  volumes:
+  - name: data
+    persistentVolumeClaim:
+      claimName: us-worker-1-data
+  - name: pluto-config
+    configMap:
+      name: us-pluto.toml
+  - name: pluto-users
+    configMap:
+      name: users.txt
+  - name: root-cert
+    secret:
+      secretName: root-cert.pem
+  - name: internal-worker-1-cert
+    secret:
+      secretName: internal-us-worker-1-cert.pem
+  - name: internal-worker-1-key
+    secret:
+      secretName: internal-us-worker-1-key.pem
+  - name: serviceaccount
+    secret:
+      secretName: service-account.json
