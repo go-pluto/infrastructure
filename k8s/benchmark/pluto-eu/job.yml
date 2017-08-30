@@ -20,7 +20,7 @@ spec:
         - '-userdb'
         - '/users/passwd'
         - '-logtostderr=true'
-        - '-v=0'
+        - '-v=3'
         env:
         - name: GOOGLE_CLOUD_PROJECT
           value: pluto-167312
