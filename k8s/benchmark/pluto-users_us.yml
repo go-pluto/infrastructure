@@ -4,7 +4,7 @@ metadata:
   name: pluto-users.passwd
   namespace: benchmark
 data:
-  passwd: |-
+  passwd: |+
     user1:{plain}password1
     user2:{plain}password2
     user3:{plain}password3

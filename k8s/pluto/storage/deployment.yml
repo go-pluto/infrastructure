@@ -51,8 +51,8 @@ spec:
           containerPort: 9999
         resources:
           requests:
-            cpu: 100m
-            memory: 6144Mi
+            cpu: 600m
+            memory: 10240Mi
         volumeMounts:
         - name: data
           mountPath: /data

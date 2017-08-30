@@ -1,19 +1,19 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: pluto-us-benchmark.conf
+  name: pluto-eu-benchmark.conf
   namespace: benchmark
 data:
   config.toml: |-
     [server]
-    addr = "104.196.4.142:1993"
+    addr = "35.187.28.98:1993"
     TLS = true # unused
 
     [settings]
     threads = 20
     sessions = 5000
     throttle = 50 # unused
-    seed = 0
+    seed = 1
 
     [session]
     minlength = 15

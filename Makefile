@@ -52,6 +52,13 @@ benchmark-pluto-us:
 	kubectl --context="us-east1-b" apply -f k8s/benchmark/pluto-us/config.yml
 	kubectl --context="us-east1-b" apply -f k8s/benchmark/pluto-us/job.yml
 
+.PHONY: benchmark-pluto-eu
+benchmark-pluto-eu:
+	kubectl --context="europe-west1-b" apply -f k8s/benchmark/pluto-users_eu.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/benchmark/pluto-eu/job.yml
+	kubectl --context="europe-west1-b" apply -f k8s/benchmark/pluto-eu/config.yml
+	kubectl --context="europe-west1-b" apply -f k8s/benchmark/pluto-eu/job.yml
+
 .PHONY: benchmark-pluto-2
 benchmark-pluto-2:
 	kubectl --context="us-east1-b" apply -f k8s/benchmark/pluto-users_us.yml
@@ -62,7 +69,6 @@ benchmark-pluto-2:
 	kubectl --context="europe-west1-b" apply -f k8s/benchmark/pluto-eu/config.yml
 	kubectl --context="us-east1-b" apply -f k8s/benchmark/pluto-us/job.yml
 	kubectl --context="europe-west1-b" apply -f k8s/benchmark/pluto-eu/job.yml
-
 
 ### DOVECOT ###
 
@@ -207,7 +213,7 @@ grafana-forward:
 
 .PHONY: kubectl-proxy
 kubectl-proxy:
-	kubectl --context="europe-west1-b" proxy --port=8080 & kubectl --context="us-east1-b" proxy --port=8081
+	kubectl --context="europe-west1-b" proxy --port=8080 & kubectl --context="us-east1-b" proxy --port=8081 & kubectl --context="europe-west2-b" proxy --port=8082
 
 
 ### PLUTO ###
@@ -231,7 +237,8 @@ pluto-secrets:
 
 .PHONY: pluto-stop
 pluto-stop:
-	kubectl delete --ignore-not-found=true -f k8s/pluto/distributor/deployment.yml
+	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/distributor/deployment-eu.yml
+	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/pluto/distributor/deployment-us.yml
 	kubectl delete --ignore-not-found=true -f k8s/pluto/storage/deployment.yml
 	kubectl --context="europe-west1-b" delete --ignore-not-found=true -f k8s/pluto/worker-1/deployment-eu.yml
 	kubectl --context="us-east1-b" delete --ignore-not-found=true -f k8s/pluto/worker-1/deployment-us.yml
@@ -249,6 +256,8 @@ pluto-stop:
 
 .PHONY: pluto-start
 pluto-start:
+	kubectl apply -f k8s/pluto/config-eu.yml
+	kubectl apply -f k8s/pluto/config-us.yml
 	kubectl --context="europe-west2-b" apply -f k8s/pluto/storage/pvc.yaml
 	kubectl --context="europe-west1-b" apply -f k8s/pluto/worker-1/pvc-eu.yaml
 	kubectl --context="europe-west1-b" apply -f k8s/pluto/worker-2/pvc-eu.yaml
@@ -256,7 +265,8 @@ pluto-start:
 	kubectl --context="us-east1-b" apply -f k8s/pluto/worker-1/pvc-us.yaml
 	kubectl --context="us-east1-b" apply -f k8s/pluto/worker-2/pvc-us.yaml
 	kubectl --context="us-east1-b" apply -f k8s/pluto/worker-3/pvc-us.yaml
-	kubectl apply -f k8s/pluto/distributor/deployment.yml
+	kubectl --context="europe-west1-b" apply -f k8s/pluto/distributor/deployment-eu.yml
+	kubectl --context="us-east1-b" apply -f k8s/pluto/distributor/deployment-us.yml
 	kubectl apply -f k8s/pluto/storage/deployment.yml
 	kubectl --context="europe-west1-b" apply -f k8s/pluto/worker-1/deployment-eu.yml
 	kubectl --context="us-east1-b" apply -f k8s/pluto/worker-1/deployment-us.yml
